@@ -1,4 +1,5 @@
 <template>
+    <div class="app"></div>
     <router-view></router-view>
 </template>
 
@@ -13,8 +14,12 @@ export default {
     methods: {
 
     },
+
+    beforeMount() {
+        this.$store.commit('initialiseStore')
+    },
 }
 </script>
 
-<style>
+<style lang="scss">
 </style>
