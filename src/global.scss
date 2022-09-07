@@ -1,14 +1,81 @@
 @import './variables';
 
+@font-face {
+    font-family: 'Roboto';
+    src: local('Roboto Regular'), local('Roboto-Regular'),
+        url('./fonts/roboto-regular.woff2') format('woff2'),
+        url('./fonts/roboto-regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: local('Roboto Light'), local('Roboto-Light'),
+        url('./fonts/roboto-light.woff2') format('woff2'),
+        url('./fonts/roboto-light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: local('Roboto Medium'), local('Roboto-Medium'),
+        url('./fonts/roboto-medium.woff2') format('woff2'),
+        url('./fonts/roboto-medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'NotoSansJP';
+    src: local('NotoSansJP Medium'), local('NotoSansJP-Medium'),
+        url('./fonts/NotoSansJP-Medium.woff2') format('woff2'),
+        url('./fonts/NotoSansJP-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    unicode-range: U+3000-303f, U+3040-309f, U+30A0-30FF, U+ff00-ffef, U+4e00-9faf;
+}
+
+@font-face {
+    font-family: 'NotoSansJP';
+    src: local('NotoSansJP Regular'), local('NotoSansJP-Regular'),
+        url('./fonts/NotoSansJP-Regular.woff2') format('woff2'),
+        url('./fonts/NotoSansJP-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+    unicode-range: U+3000-303f, U+3040-309f, U+30A0-30FF, U+ff00-ffef, U+4e00-9faf;
+}
+
+@font-face {
+    font-family: 'NotoSansJP';
+    src: local('NotoSansJP Light'), local('NotoSansJP-Light'),
+        url('./fonts/NotoSansJP-Light.woff2') format('woff2'),
+        url('./fonts/NotoSansJP-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    unicode-range: U+3000-303f, U+3040-309f, U+30A0-30FF, U+ff00-ffef, U+4e00-9faf;
+}
+
 input,
 a,
 button {
     outline: none;
     border: none;
+    margin: 0;
+    padding: 0;
 
     &:focus {
         outline: none;
     }
+}
+
+button {
+    cursor: pointer;
+    background-color: transparent;
+    margin: 0;
+    padding: 0;
+    font-size: 0;
 }
 
 body {
@@ -17,8 +84,12 @@ body {
     background-color: $bg;
 }
 
+* {
+    font-family: 'NotoSansJP', 'Roboto', sans-serif;
+}
+
 .container {
-    max-width: 1100px;
+    max-width: 1000px;
     margin: 0 auto;
     padding: 0 50px;
 }

@@ -3,8 +3,10 @@
     <router-view></router-view>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
     data() {
         return {
 
@@ -18,8 +20,9 @@ export default {
     beforeMount() {
         this.$store.commit('initialiseStore')
     },
-}
+})
 </script>
 
 <style lang="scss">
+
 </style>

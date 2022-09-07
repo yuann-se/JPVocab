@@ -1,10 +1,11 @@
 <template>
     <input class="search-input" type="text" v-model.trim="searchQuery">
 </template>
-<script>
-// import { mapMutations, mapState } from 'vuex';
 
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
     computed: {
         searchQuery: {
             get() {
@@ -15,7 +16,7 @@ export default {
             }
         }
     }
-}
+})
 </script>
 
 <style lang="scss">

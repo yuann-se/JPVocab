@@ -1,4 +1,4 @@
-# jpvocab
+# test
 
 ## Project setup
 ```

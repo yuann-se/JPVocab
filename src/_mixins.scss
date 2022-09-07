@@ -1,0 +1,11 @@
+@import '@/variables';
+
+@mixin makeLarger {
+    position: relative;
+
+    &::before {
+        content: '';
+        position: absolute;
+        inset: -5px;
+    }
+}
