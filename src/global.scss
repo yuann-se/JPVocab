@@ -1,29 +1,20 @@
 @import './variables';
 
 @font-face {
-    font-family: 'Roboto';
-    src: local('Roboto Regular'), local('Roboto-Regular'),
-        url('./fonts/roboto-regular.woff2') format('woff2'),
-        url('./fonts/roboto-regular.woff') format('woff');
+    font-family: 'CenturyGothic';
+    src: local('CenturyGothic Regular'), local('CenturyGothic-Regular'),
+        url('./fonts/CenturyGothic.woff2') format('woff2'),
+        url('./fonts/CenturyGothic.woff') format('woff');
     font-weight: 400;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'Roboto';
-    src: local('Roboto Light'), local('Roboto-Light'),
-        url('./fonts/roboto-light.woff2') format('woff2'),
-        url('./fonts/roboto-light.woff') format('woff');
-    font-weight: 300;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Roboto';
-    src: local('Roboto Medium'), local('Roboto-Medium'),
-        url('./fonts/roboto-medium.woff2') format('woff2'),
-        url('./fonts/roboto-medium.woff') format('woff');
-    font-weight: 500;
+    font-family: 'CenturyGothic';
+    src: local('CenturyGothic Bold'), local('CenturyGothic-Bold'),
+        url('./fonts/CenturyGothic-Bold.woff2') format('woff2'),
+        url('./fonts/CenturyGothic-Bold.woff') format('woff');
+    font-weight: 700;
     font-style: normal;
 }
 
@@ -85,7 +76,8 @@ body {
 }
 
 * {
-    font-family: 'NotoSansJP', 'Roboto', sans-serif;
+    font-family: 'NotoSansJP', 'CenturyGothic', sans-serif;
+    box-sizing: border-box;
 }
 
 .container {

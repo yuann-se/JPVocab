@@ -1,0 +1,79 @@
+@import '@/variables';
+@import '@/mixins';
+
+.card-wrapper {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: 30px;
+    row-gap: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+
+    border-radius: 5px;
+    background-color: white;
+    transition: background-color .2s ease;
+
+    &.isChecked {
+        background-color: $selected;
+    }
+}
+
+.segment {
+    &.name {
+        grid-column: 1 / 3;
+    }
+
+    &.reading {
+        grid-column: 4 / 6;
+    }
+
+    &.translation {
+        grid-column: 7 / 9;
+    }
+
+    &.edit {
+        @include makeLarger;
+        grid-column: 11;
+    }
+
+    &.checkbox {
+        grid-column: 12;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        cursor: pointer;
+
+        &::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+        }
+
+        input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+
+            &:checked+.box .mark {
+                max-height: 20px;
+            }
+        }
+
+        .box {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border: 1px solid $purple66;
+        }
+
+        .mark {
+            max-height: 0;
+            transition: max-height .2s ease;
+            position: absolute;
+            left: -4px;
+            bottom: -2px;
+            font-size: 0;
+        }
+    }
+}

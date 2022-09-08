@@ -6,31 +6,19 @@
             <button class="add" @click="openAddPanel" :class="{active: isAddPanelOpen}">
                 <AddNewWordIcon />
             </button>
-
         </div>
     </header>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script lang="ts" setup>
+import { computed } from 'vue';
 import HeaderSearch from './HeaderSearch.vue';
-import AddNewWordIcon from '../icons/AddNewWordIcon.vue';
+import AddNewWordIcon from '@/components/icons/AddNewWordIcon.vue';
+import store from '@/store';
 
-export default defineComponent({
-    components: { HeaderSearch, AddNewWordIcon },
+const isAddPanelOpen = computed<boolean>(() => { return store.state.isAddPanelOpen })
+const openAddPanel = () => store.dispatch('setIsAddPanelOpen', !store.state.isAddPanelOpen);
 
-    computed: {
-        isAddPanelOpen() {
-            return this.$store.state.isAddPanelOpen
-        }
-    },
-
-    methods: {
-        openAddPanel() {
-            this.$store.commit('setIsAddPanelOpen', !this.$store.state.isAddPanelOpen);
-        }
-    }
-})
 </script>
 
 <style lang="scss" scoped>
@@ -63,6 +51,11 @@ export default defineComponent({
 
     &.active {
         transform: rotate(225deg);
+    }
+
+    svg rect {
+        opacity: .5;
+        fill: black;
     }
 }
 </style>

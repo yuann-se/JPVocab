@@ -6,19 +6,13 @@
     </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script lang="ts" setup>
+import store from '@/store';
+import { computed } from 'vue';
 import WordCard from './WordCard.vue';
 
-export default defineComponent({
-    components: { WordCard },
+const words = computed(() => { return store.state.words })
 
-    computed: {
-        words() {
-            return this.$store.state.words
-        }
-    },
-})
 </script>
 
 <style lang="scss" scoped>

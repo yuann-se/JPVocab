@@ -18,7 +18,7 @@ export default defineComponent({
     },
 
     beforeMount() {
-        this.$store.commit('initialiseStore')
+        this.$store.dispatch('initialiseStore')
     },
 })
 </script>

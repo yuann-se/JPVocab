@@ -1,0 +1,74 @@
+@import '@/variables';
+
+.modalWrapper {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba($color: #000000, $alpha: .5);
+}
+
+.content {
+    position: relative;
+    width: 300px;
+    height: 200px;
+    padding: 30px;
+
+    text-align: center;
+    border-radius: 5px;
+    background-color: white;
+}
+
+.text {
+    display: block;
+    margin-bottom: 30px;
+    margin-top: 20px;
+    font-size: 22px;
+}
+
+.deleteBtn {
+    display: block;
+    width: 100px;
+    height: 40px;
+    margin: 0 auto;
+    margin-bottom: 7px;
+
+    color: white;
+    background-color: $red;
+    font-size: 18px;
+}
+
+.cancelBtn {
+    font-size: 15px;
+    text-decoration: underline;
+}
+
+.closeBtn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+
+.modal-enter-active,
+.modal-leave-active {
+    opacity: 1;
+    transition: opacity .2s ease;
+
+    .content {
+        transform: none;
+        transition: transform 0.2s ease;
+    }
+}
+
+.modal-enter-from,
+.modal-leave-to {
+    opacity: 0;
+
+    .content {
+        transform: scale(.8);
+    }
+}
