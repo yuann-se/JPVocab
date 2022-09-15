@@ -9,14 +9,14 @@
 <script lang="ts" setup>
 import store from '@/store';
 import { computed } from 'vue';
-import WordCard from './WordCard.vue';
+import WordCard from '@/components/WordsListItem.vue';
 
-const words = computed(() => { return store.state.words })
+const words = computed(() => { return store.getters.sortedWords })
 
 </script>
 
 <style lang="scss" scoped>
-@import '@/variables';
+@import '@/scss/variables';
 
 .cards-wrapper {
     position: absolute;

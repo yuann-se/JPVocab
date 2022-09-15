@@ -1,10 +1,10 @@
-@import './variables';
+@import '@/scss/variables';
 
 @font-face {
     font-family: 'CenturyGothic';
     src: local('CenturyGothic Regular'), local('CenturyGothic-Regular'),
-        url('./fonts/CenturyGothic.woff2') format('woff2'),
-        url('./fonts/CenturyGothic.woff') format('woff');
+        url('@/fonts/CenturyGothic.woff2') format('woff2'),
+        url('@/fonts/CenturyGothic.woff') format('woff');
     font-weight: 400;
     font-style: normal;
 }
@@ -12,8 +12,8 @@
 @font-face {
     font-family: 'CenturyGothic';
     src: local('CenturyGothic Bold'), local('CenturyGothic-Bold'),
-        url('./fonts/CenturyGothic-Bold.woff2') format('woff2'),
-        url('./fonts/CenturyGothic-Bold.woff') format('woff');
+        url('@/fonts/CenturyGothic-Bold.woff2') format('woff2'),
+        url('@/fonts/CenturyGothic-Bold.woff') format('woff');
     font-weight: 700;
     font-style: normal;
 }
@@ -21,8 +21,8 @@
 @font-face {
     font-family: 'NotoSansJP';
     src: local('NotoSansJP Medium'), local('NotoSansJP-Medium'),
-        url('./fonts/NotoSansJP-Medium.woff2') format('woff2'),
-        url('./fonts/NotoSansJP-Medium.woff') format('woff');
+        url('@/fonts/NotoSansJP-Medium.woff2') format('woff2'),
+        url('@/fonts/NotoSansJP-Medium.woff') format('woff');
     font-weight: 500;
     font-style: normal;
     unicode-range: U+3000-303f, U+3040-309f, U+30A0-30FF, U+ff00-ffef, U+4e00-9faf;
@@ -31,8 +31,8 @@
 @font-face {
     font-family: 'NotoSansJP';
     src: local('NotoSansJP Regular'), local('NotoSansJP-Regular'),
-        url('./fonts/NotoSansJP-Regular.woff2') format('woff2'),
-        url('./fonts/NotoSansJP-Regular.woff') format('woff');
+        url('@/fonts/NotoSansJP-Regular.woff2') format('woff2'),
+        url('@/fonts/NotoSansJP-Regular.woff') format('woff');
     font-weight: 400;
     font-style: normal;
     unicode-range: U+3000-303f, U+3040-309f, U+30A0-30FF, U+ff00-ffef, U+4e00-9faf;
@@ -41,8 +41,8 @@
 @font-face {
     font-family: 'NotoSansJP';
     src: local('NotoSansJP Light'), local('NotoSansJP-Light'),
-        url('./fonts/NotoSansJP-Light.woff2') format('woff2'),
-        url('./fonts/NotoSansJP-Light.woff') format('woff');
+        url('@/fonts/NotoSansJP-Light.woff2') format('woff2'),
+        url('@/fonts/NotoSansJP-Light.woff') format('woff');
     font-weight: 300;
     font-style: normal;
     unicode-range: U+3000-303f, U+3040-309f, U+30A0-30FF, U+ff00-ffef, U+4e00-9faf;
@@ -53,8 +53,6 @@ a,
 button {
     outline: none;
     border: none;
-    margin: 0;
-    padding: 0;
 
     &:focus {
         outline: none;
@@ -64,20 +62,19 @@ button {
 button {
     cursor: pointer;
     background-color: transparent;
-    margin: 0;
-    padding: 0;
     font-size: 0;
 }
 
 body {
     color: $black;
-    margin: 0;
     background-color: $bg;
 }
 
 * {
     font-family: 'NotoSansJP', 'CenturyGothic', sans-serif;
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 .container {

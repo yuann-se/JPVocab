@@ -1,5 +1,5 @@
-@import '@/variables';
-@import '@/mixins';
+@import '@/scss/variables';
+@import '@/scss/mixins';
 
 .card-wrapper {
     position: relative;
@@ -22,17 +22,29 @@
 .segment {
     &.name {
         grid-column: 1 / 3;
+        font-size: 22px;
     }
 
     &.reading {
         grid-column: 4 / 6;
+        font-size: 18px;
     }
 
     &.translation {
         grid-column: 7 / 9;
     }
 
+    .readingsList {
+        display: block;
+
+        &:not(:last-child) {
+            margin-bottom: 7px;
+        }
+    }
+
     &.edit {
+        position: relative;
+        z-index: 100;
         @include makeLarger;
         grid-column: 11;
     }
@@ -56,7 +68,7 @@
             height: 0;
 
             &:checked+.box .mark {
-                max-height: 20px;
+                max-width: 20px;
             }
         }
 
@@ -68,8 +80,9 @@
         }
 
         .mark {
-            max-height: 0;
-            transition: max-height .2s ease;
+            max-width: 0;
+            overflow: hidden;
+            transition: max-width .2s ease;
             position: absolute;
             left: -4px;
             bottom: -2px;

@@ -1,0 +1,108 @@
+@import '@/scss/variables';
+
+.container {
+    position: relative;
+    z-index: 300;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background-color: $bg;
+    box-shadow: 0 0px 20px rgb(0 0 0 / 15%);
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+
+    input {
+        margin-bottom: 15px;
+        padding: 0 15px;
+        height: 40px;
+        font-size: 18px;
+    }
+
+    label {
+        color: $purple4F;
+        font-size: 14px;
+    }
+
+    &>button {
+        width: 120px;
+        height: 40px;
+        margin-top: 10px;
+        padding: 5px 15px;
+
+        font-size: 16px;
+        font-weight: 700;
+        color: white;
+        background-color: $pinkF8;
+    }
+}
+
+.inputForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.inputWrapper {
+    position: relative;
+    display: flex;
+
+    input {
+        flex-grow: 1;
+    }
+}
+
+.addReading {
+    width: 40px;
+    height: 40px;
+    background-color: $selected;
+
+    svg {
+        transform: rotate(45deg);
+    }
+
+}
+
+.list {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+.listItem {
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 5px;
+    margin-bottom: 5px;
+    height: 25px;
+    width: fit-content;
+
+    font-size: 14px;
+    border-radius: 15px;
+    background-color: $selected;
+
+    &:not(:last-child) {
+        margin-right: 5px;
+    }
+
+    span {
+        margin-right: 5px;
+    }
+
+    button {
+        scale: .9;
+    }
+}
+
+.item-enter-active,
+.item-leave-active {
+    opacity: 1;
+    transition: opacity 0.2s ease;
+}
+
+.item-enter-from,
+.item-leave-to {
+    opacity: 0;
+}

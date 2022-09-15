@@ -6,6 +6,9 @@
             <button class="add" @click="openAddPanel" :class="{active: isAddPanelOpen}">
                 <AddNewWordIcon />
             </button>
+            <button class="practice">
+                <PracticeIcon />
+            </button>
         </div>
     </header>
 </template>
@@ -14,19 +17,23 @@
 import { computed } from 'vue';
 import HeaderSearch from './HeaderSearch.vue';
 import AddNewWordIcon from '@/components/icons/AddNewWordIcon.vue';
-import store from '@/store';
+import store, { emptyWord } from '@/store';
+import PracticeIcon from './icons/PracticeIcon.vue';
 
 const isAddPanelOpen = computed<boolean>(() => { return store.state.isAddPanelOpen })
-const openAddPanel = () => store.dispatch('setIsAddPanelOpen', !store.state.isAddPanelOpen);
+const openAddPanel = () => {
+    store.dispatch('setIsAddPanelOpen', !store.state.isAddPanelOpen)
+    if (!store.state.isAddPanelOpen && store.state.wordToEdit.body) store.dispatch('setWordToEdit', { ...emptyWord })
+}
 
 </script>
 
 <style lang="scss" scoped>
-@import '@/variables';
+@import '@/scss/variables';
 
 .header {
     position: relative;
-    z-index: 200;
+    z-index: 400;
     height: 100px;
     background-color: $purple66;
 }
@@ -46,16 +53,25 @@ const openAddPanel = () => store.dispatch('setIsAddPanelOpen', !store.state.isAd
 .add {
     display: inline-block;
     margin-left: auto;
+    margin-right: 30px;
     transform: none;
     transition: transform .5s ease;
 
     &.active {
         transform: rotate(225deg);
     }
+}
 
-    svg rect {
-        opacity: .5;
-        fill: black;
+.practice {
+    position: relative;
+
+    &::before {
+        content: '';
+        position: absolute;
+        inset: -5px;
+        background-color: #ffead2;
+        opacity: .4;
+        border-radius: 7px;
     }
 }
 </style>

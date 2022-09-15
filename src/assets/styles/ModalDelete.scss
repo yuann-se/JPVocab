@@ -1,4 +1,4 @@
-@import '@/variables';
+@import '@/scss/variables';
 
 .modalWrapper {
     position: fixed;
@@ -26,7 +26,7 @@
     display: block;
     margin-bottom: 30px;
     margin-top: 20px;
-    font-size: 22px;
+    font-size: 20px;
 }
 
 .deleteBtn {

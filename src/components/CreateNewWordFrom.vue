@@ -1,79 +1,114 @@
 <template>
     <div class="container">
-        <form @submit.prevent="addNewWord" class="form">
+        <div class="form">
+
             <label for="word">Word</label>
             <input type="text" autocomplete="off" name="word" v-model.trim="newWord.body">
-            <label for="reading">Reading</label>
-            <input type="text" autocomplete="off" name="reading" v-model.trim="newWord.reading">
-            <label for="translation">Translation</label>
-            <input type="text" autocomplete="off" name="translation" v-model.trim="newWord.translation">
-            <button>Add</button>
-        </form>
+
+            <form @submit.prevent="addItem('reading')" class="inputForm">
+                <label for="reading">Reading</label>
+                <div class="inputWrapper">
+                    <input type="text" v-model.trim="readingRef" autocomplete="off" name="reading">
+                    <button class="addReading">
+                        <DeleteReadingIcon />
+                    </button>
+                </div>
+                <transition-group name="item" tag="ul" class="list" v-if="newWord.reading">
+                    <li class="listItem" v-for="item in newWord.reading" :key="item">
+                        <span>{{item}}</span>
+                        <button type="button" @click="deleteItem(item, 'reading')">
+                            <DeleteReadingIcon />
+                        </button>
+                    </li>
+                </transition-group>
+            </form>
+
+            <form @submit.prevent="addItem('translation')" class="inputForm">
+                <label for="translation">Translation</label>
+                <div class="inputWrapper">
+                    <input type="text" v-model.trim="translationRef" autocomplete="off" name="translation">
+                    <button class="addReading">
+                        <DeleteReadingIcon />
+                    </button>
+                </div>
+
+                <transition-group name="item" tag="ul" class="list" v-if="newWord.translation">
+                    <li class="listItem" v-for="item in newWord.translation" :key="item">
+                        <span>{{item}}</span>
+                        <button type="button" @click="deleteItem(item, 'translation')">
+                            <DeleteReadingIcon />
+                        </button>
+                    </li>
+                </transition-group>
+            </form>
+
+            <button type="button" @click="addNewWord">{{wordToEdit.body ? 'Save' : 'Add'}}</button>
+        </div>
     </div>
 </template>
 
 <script lang="ts" setup>
-import store, { IWord } from '@/store';
-import { ref } from 'vue';
+import store, { IWord, emptyWord } from '@/store';
+import { computed, reactive, ref } from 'vue';
+import DeleteReadingIcon from './icons/DeleteReadingIcon.vue';
 
-const defaultValue: IWord = {
-    id: '',
-    body: '',
-    reading: '',
-    translation: '',
-    isChecked: false
+
+const wordToEdit = computed(() => { return store.state.wordToEdit })
+console.log(wordToEdit.value.body)
+
+let newWord = reactive<IWord>(wordToEdit.value.body
+    ? { ...wordToEdit.value }
+    : { ...emptyWord })
+
+const readingRef = ref<string>('')
+const translationRef = ref<string>('')
+
+const addItem = (listName: string) => {
+    switch (listName) {
+        case ('reading'):
+            if (readingRef.value) newWord.reading = [...newWord.reading, readingRef.value]
+            readingRef.value = ''
+            return
+        case ('translation'):
+            if (translationRef.value) newWord.translation = [...newWord.translation, translationRef.value]
+            translationRef.value = ''
+    }
 }
 
-const newWord = ref<IWord>(defaultValue)
+const deleteItem = (item: string, listName: string) => {
+    switch (listName) {
+        case ('reading'): return newWord.reading = newWord.reading.filter((li) => li !== item)
+        case ('translation'): return newWord.translation = newWord.translation.filter((li) => li !== item)
+    }
+}
 
 const addNewWord = () => {
-    newWord.value.id = Date.now().toString()
-    newWord.value.isChecked = false
-    store.dispatch('addNewWord', newWord.value)
-    newWord.value = defaultValue
-}
+    if (newWord.body && (newWord.translation.length || translationRef.value)) {
+        if (!newWord.id) newWord.id = Date.now().toString()
+        if (!newWord.isChecked) newWord.isChecked = false
+        if (readingRef.value) {
+            newWord.reading.push(readingRef.value)
+            readingRef.value = ''
+        }
 
+        if (translationRef.value) {
+            newWord.translation.push(translationRef.value)
+            translationRef.value = ''
+        }
+
+        if (wordToEdit.value.body) {
+            store.dispatch('editWord', newWord)
+            store.dispatch('setWordToEdit', { ...emptyWord })
+            store.dispatch('setIsAddPanelOpen', false)
+            return
+        }
+
+        store.dispatch('addNewWord', newWord)
+        newWord = { ...emptyWord }
+    }
+}
 </script>
 
 <style lang="scss" scoped>
-@import '@/variables';
-
-.container {
-    position: relative;
-    z-index: 100;
-    padding-top: 30px;
-    padding-bottom: 30px;
-    background-color: $bg;
-    box-shadow: 0 0px 20px rgb(0 0 0 / 15%);
-}
-
-.form {
-    display: flex;
-    flex-direction: column;
-
-    input {
-        margin-bottom: 15px;
-        padding: 0 15px;
-        height: 40px;
-        width: 60%;
-        font-size: 18px;
-    }
-
-    label {
-        color: $purple4F;
-        font-size: 14px;
-    }
-
-    button {
-        width: 120px;
-        height: 40px;
-        margin-top: 10px;
-        padding: 5px 15px;
-
-        font-size: 16px;
-        font-weight: 700;
-        color: white;
-        background-color: $pinkF8;
-    }
-}
+@import '@/assets/styles/CreateNewWordForm.scss';
 </style>

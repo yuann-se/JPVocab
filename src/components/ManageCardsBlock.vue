@@ -1,6 +1,7 @@
 <template>
     <div class="wrapper">
         <div class="container">
+            <SortBlock />
             <button class="deleteBtn" :disabled="!isAnyChecked" @click="setIsModalOpen(true)">
                 <DeleteWordIcon />
             </button>
@@ -16,6 +17,7 @@ import { computed, ref } from 'vue';
 import DeleteWordIcon from '@/components/icons/DeleteWordIcon.vue';
 import store from '@/store';
 import ModalDelete from './ModalDelete.vue';
+import SortBlock from './SortBlock.vue';
 
 const isAnyChecked = computed<boolean>(() => { return store.state.isAnyChecked })
 
@@ -25,19 +27,21 @@ const setIsModalOpen = (value: boolean) => isModalOpen.value = value
 </script>
 
 <style lang="scss" scoped>
-@import '@/variables';
+@import '@/scss/variables';
 
 .wrapper {
     position: absolute;
     inset: 0;
     top: 100px;
+    height: 50px;
+    background-color: white;
 }
 
 .container {
-    height: 50px;
-    background-color: white;
     display: flex;
+    height: 100%;
     align-items: center;
+    justify-content: space-between;
 }
 
 .deleteBtn {

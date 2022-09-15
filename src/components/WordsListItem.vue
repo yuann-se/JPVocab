@@ -4,18 +4,20 @@
             {{props.word.body}}
         </div>
         <div class="segment reading">
-            {{props.word.reading}}
+            <span class="readingsList" v-for="item in props.word.reading" :key="item">{{item}}</span>
         </div>
         <div class="segment translation">
-            {{props.word.translation}}
+            <span class="readingsList" v-for="item in props.word.translation" :key="item">{{item}}</span>
         </div>
-        <button class="segment edit">
+        <button class="segment edit" @click="handleEdit">
             <EditWordIcon />
         </button>
         <label class="segment checkbox">
             <input type="checkbox" :checked="word.isChecked" @change="setIsChecked">
             <span class="box">
-                <CheckMarkIcon class="mark" />
+                <span class="mark">
+                    <CheckMarkIcon />
+                </span>
             </span>
         </label>
     </div>
@@ -34,8 +36,13 @@ const props = defineProps<IProps>()
 
 const setIsChecked = () => store.dispatch('setIsChecked', props.word)
 
+const handleEdit = () => {
+    store.dispatch('setWordToEdit', { ...props.word })
+    store.dispatch('setIsAddPanelOpen', true);
+}
+
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/WordCard.scss';
+@import '@/assets/styles/WordsListItem.scss';
 </style>

@@ -1,7 +1,7 @@
 <template>
     <MainHeader />
     <Transition name="addPanel">
-        <CreateNewWordFrom v-show="isAddPanelOpen" />
+        <CreateNewWordFrom v-if="isAddPanelOpen" />
     </Transition>
     <ManageCardsBlock />
     <CardsList />
@@ -9,7 +9,7 @@
 
 <script lang="ts" setup>
 import CreateNewWordFrom from "@/components/CreateNewWordFrom.vue";
-import CardsList from "@/components/CardsList.vue";
+import CardsList from "@/components/WordsList.vue";
 import { computed } from "vue";
 import MainHeader from "@/components/MainHeader.vue";
 import ManageCardsBlock from "@/components/ManageCardsBlock.vue";
@@ -21,7 +21,7 @@ const isAddPanelOpen = computed<boolean>(() => {
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .addPanel-enter-active,
 .addPanel-leave-active {
     transform: none;
