@@ -1,14 +1,8 @@
 @import '@/scss/variables';
+@import '@/scss/mixins';
 
 .modalWrapper {
-    position: fixed;
-    inset: 0;
-    z-index: 200;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba($color: #000000, $alpha: .5);
+    @include modalOverlay;
 }
 
 .content {
@@ -53,22 +47,13 @@
 }
 
 
-.modal-enter-active,
-.modal-leave-active {
-    opacity: 1;
-    transition: opacity .2s ease;
-
-    .content {
-        transform: none;
-        transition: transform 0.2s ease;
-    }
+.content-enter-active,
+.content-leave-active {
+    transform: none;
+    transition: transform .2s ease;
 }
 
-.modal-enter-from,
-.modal-leave-to {
-    opacity: 0;
-
-    .content {
-        transform: scale(.8);
-    }
+.content-enter-from,
+.content-leave-to {
+    transform: scale(.8);
 }

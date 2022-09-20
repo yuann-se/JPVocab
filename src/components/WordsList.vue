@@ -20,7 +20,7 @@ const words = computed(() => { return store.getters.sortedWords })
 
 .cards-wrapper {
     position: absolute;
-    inset: 0;
+    width: 100vw;
     top: 150px;
     padding-top: 50px;
 }

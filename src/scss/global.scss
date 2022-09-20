@@ -1,22 +1,32 @@
 @import '@/scss/variables';
 
 @font-face {
-    font-family: 'CenturyGothic';
-    src: local('CenturyGothic Regular'), local('CenturyGothic-Regular'),
-        url('@/fonts/CenturyGothic.woff2') format('woff2'),
-        url('@/fonts/CenturyGothic.woff') format('woff');
+    font-family: 'NeueHaasDisplay';
+    src: local('NeueHaasDisplay Light'), local('NeueHaasDisplay-Light'),
+        url('@/fonts/NeueHaasDisplay-Light.woff2') format('woff2'),
+        url('@/fonts/NeueHaasDisplay-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'NeueHaasDisplay';
+    src: local('NeueHaasDisplay Roman'), local('NeueHaasDisplay-Roman'),
+        url('@/fonts/NeueHaasDisplay-Roman.woff2') format('woff2'),
+        url('@/fonts/NeueHaasDisplay-Roman.woff') format('woff');
     font-weight: 400;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'CenturyGothic';
-    src: local('CenturyGothic Bold'), local('CenturyGothic-Bold'),
-        url('@/fonts/CenturyGothic-Bold.woff2') format('woff2'),
-        url('@/fonts/CenturyGothic-Bold.woff') format('woff');
-    font-weight: 700;
+    font-family: 'NeueHaasDisplay';
+    src: local('NeueHaasDisplay Medium'), local('NeueHaasDisplay-Medium'),
+        url('@/fonts/NeueHaasDisplay-Medium.woff2') format('woff2'),
+        url('@/fonts/NeueHaasDisplay-Medium.woff') format('woff');
+    font-weight: 500;
     font-style: normal;
 }
+
 
 @font-face {
     font-family: 'NotoSansJP';
@@ -53,10 +63,15 @@ a,
 button {
     outline: none;
     border: none;
+    text-decoration: none;
 
     &:focus {
         outline: none;
     }
+}
+
+li {
+    list-style: none;
 }
 
 button {
@@ -68,10 +83,13 @@ button {
 body {
     color: $black;
     background-color: $bg;
+    width: 100vw;
+    overflow-x: hidden;
 }
 
 * {
-    font-family: 'NotoSansJP', 'CenturyGothic', sans-serif;
+    font-family: 'NotoSansJP', 'NeueHaasDisplay', sans-serif;
+    font-weight: 400;
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -80,5 +98,5 @@ body {
 .container {
     max-width: 1000px;
     margin: 0 auto;
-    padding: 0 50px;
+    padding: 0 70px 0 50px;
 }

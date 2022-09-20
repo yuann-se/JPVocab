@@ -9,6 +9,10 @@
         <div class="segment translation">
             <span class="readingsList" v-for="item in props.word.translation" :key="item">{{item}}</span>
         </div>
+        <div class="segment progress">
+            <ProgressBarIcon class="progressBar" :progress="props.word.progress" />
+            <span>{{props.word.progress}}%</span>
+        </div>
         <button class="segment edit" @click="handleEdit">
             <EditWordIcon />
         </button>
@@ -27,6 +31,7 @@
 import store, { IWord } from '@/store';
 import EditWordIcon from '@/components/icons/EditWordIcon.vue';
 import CheckMarkIcon from '@/components/icons/CheckMarkIcon.vue';
+import ProgressBarIcon from './icons/ProgressBarIcon.vue';
 
 interface IProps {
     word: IWord

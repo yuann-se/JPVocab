@@ -1,26 +1,15 @@
 <template>
-    <div class="app"></div>
-    <router-view></router-view>
+    <div class="app">
+        <router-view></router-view>
+    </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script lang="ts" setup>
+import { onBeforeMount } from 'vue';
+import store from './store';
 
-export default defineComponent({
-    data() {
-        return {
+onBeforeMount(() => store.dispatch('initialiseStore'))
 
-        }
-    },
-
-    methods: {
-
-    },
-
-    beforeMount() {
-        this.$store.dispatch('initialiseStore')
-    },
-})
 </script>
 
 <style lang="scss">

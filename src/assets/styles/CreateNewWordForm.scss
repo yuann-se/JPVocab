@@ -1,8 +1,14 @@
 @import '@/scss/variables';
 
-.container {
+.sectionWrapper {
     position: relative;
     z-index: 300;
+    height: 150vh;
+    backdrop-filter: blur(3px);
+}
+
+.container {
+    max-width: 900px;
     padding-top: 30px;
     padding-bottom: 30px;
     background-color: $bg;
@@ -15,10 +21,10 @@
     width: 60%;
 
     input {
-        margin-bottom: 15px;
         padding: 0 15px;
         height: 40px;
         font-size: 18px;
+
     }
 
     label {
@@ -37,72 +43,4 @@
         color: white;
         background-color: $pinkF8;
     }
-}
-
-.inputForm {
-    display: flex;
-    flex-direction: column;
-}
-
-.inputWrapper {
-    position: relative;
-    display: flex;
-
-    input {
-        flex-grow: 1;
-    }
-}
-
-.addReading {
-    width: 40px;
-    height: 40px;
-    background-color: $selected;
-
-    svg {
-        transform: rotate(45deg);
-    }
-
-}
-
-.list {
-    display: flex;
-    flex-wrap: wrap;
-    margin-bottom: 10px;
-}
-
-.listItem {
-    display: flex;
-    align-items: center;
-    padding-left: 10px;
-    padding-right: 5px;
-    margin-bottom: 5px;
-    height: 25px;
-    width: fit-content;
-
-    font-size: 14px;
-    border-radius: 15px;
-    background-color: $selected;
-
-    &:not(:last-child) {
-        margin-right: 5px;
-    }
-
-    span {
-        margin-right: 5px;
-    }
-
-    button {
-        scale: .9;
-    }
-}
-
-.item-enter-active,
-.item-leave-active {
-    opacity: 1;
-    transition: opacity 0.2s ease;
-}
-
-.item-enter-from,
-.item-leave-to {
-    opacity: 0;
 }

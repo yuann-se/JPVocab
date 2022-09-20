@@ -1,14 +1,18 @@
 <template>
     <header class="header">
         <div class="container">
+
             <img class="logo" src="../assets/logo.png" alt="Logo">
             <HeaderSearch />
+
             <button class="add" @click="openAddPanel" :class="{active: isAddPanelOpen}">
                 <AddNewWordIcon />
             </button>
-            <button class="practice">
+
+            <router-link to="/selectGame" class="practice">
                 <PracticeIcon />
-            </button>
+            </router-link>
+
         </div>
     </header>
 </template>
@@ -64,6 +68,7 @@ const openAddPanel = () => {
 
 .practice {
     position: relative;
+    margin-right: 5px;
 
     &::before {
         content: '';

@@ -6,7 +6,9 @@
                 <DeleteWordIcon />
             </button>
             <teleport to='#modal'>
-                <ModalDelete :isModalOpen="isModalOpen" @close="setIsModalOpen(false)" />
+                <transition name="modal">
+                    <ModalDelete v-if="isModalOpen" :isModalOpen="isModalOpen" @close="setIsModalOpen(false)" />
+                </transition>
             </teleport>
         </div>
     </div>
@@ -29,9 +31,20 @@ const setIsModalOpen = (value: boolean) => isModalOpen.value = value
 <style lang="scss" scoped>
 @import '@/scss/variables';
 
+.modal-enter-active,
+.modal-leave-active {
+    opacity: 1;
+    transition: opacity .2s ease;
+}
+
+.modal-enter-from,
+.modal-leave-to {
+    opacity: 0;
+}
+
 .wrapper {
     position: absolute;
-    inset: 0;
+    width: 100vw;
     top: 100px;
     height: 50px;
     background-color: white;

@@ -32,7 +32,7 @@ export default createStore<IStore>({
         isAnyChecked: false,
         sortBy: ESortBy.createdDate,
         sortDirection: ESortDirection.ascending,
-        wordToEdit: Object.assign({}, emptyWord)
+        wordToEdit: { ...emptyWord }
     }),
 
     mutations: {

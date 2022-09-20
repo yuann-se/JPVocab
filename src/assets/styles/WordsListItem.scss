@@ -21,17 +21,17 @@
 
 .segment {
     &.name {
-        grid-column: 1 / 3;
+        grid-column: 1 / 4;
         font-size: 22px;
     }
 
     &.reading {
-        grid-column: 4 / 6;
+        grid-column: 4 / 7;
         font-size: 18px;
     }
 
     &.translation {
-        grid-column: 7 / 9;
+        grid-column: 7 / 10;
     }
 
     .readingsList {
@@ -39,6 +39,18 @@
 
         &:not(:last-child) {
             margin-bottom: 7px;
+        }
+    }
+
+    &.progress {
+        grid-column: 10;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .progressBar {
+            position: absolute;
+            transform: rotate(-90deg);
         }
     }
 
@@ -59,7 +71,9 @@
         &::before {
             content: '';
             position: absolute;
-            inset: 0;
+            right: 0;
+            width: 50px;
+            height: 100%;
         }
 
         input {
