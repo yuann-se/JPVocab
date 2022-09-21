@@ -98,5 +98,50 @@ const addNewWord = () => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/CreateNewWordForm.scss';
+@import '@/scss/variables';
+
+.sectionWrapper {
+    position: relative;
+    z-index: 300;
+    height: 150vh;
+    backdrop-filter: blur(3px);
+}
+
+.container {
+    max-width: 900px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background-color: $bg;
+    box-shadow: 0 0px 20px rgb(0 0 0 / 15%);
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+
+    input {
+        padding: 0 15px;
+        height: 40px;
+        font-size: 18px;
+
+    }
+
+    label {
+        color: $purple4F;
+        font-size: 14px;
+    }
+
+    &>button {
+        width: 120px;
+        height: 40px;
+        margin-top: 10px;
+        padding: 5px 15px;
+
+        font-size: 16px;
+        font-weight: 700;
+        color: white;
+        background-color: $pinkF8;
+    }
+}
 </style>

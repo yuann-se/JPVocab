@@ -31,15 +31,25 @@ const setIsModalOpen = (value: boolean) => isModalOpen.value = value
 <style lang="scss" scoped>
 @import '@/scss/variables';
 
+
 .modal-enter-active,
 .modal-leave-active {
     opacity: 1;
     transition: opacity .2s ease;
+
+    &:deep(>div) {
+        transform: none;
+        transition: transform .2s ease;
+    }
 }
 
 .modal-enter-from,
 .modal-leave-to {
     opacity: 0;
+
+    &:deep(>div) {
+        transform: scale(.8);
+    }
 }
 
 .wrapper {

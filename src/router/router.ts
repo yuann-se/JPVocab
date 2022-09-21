@@ -17,9 +17,9 @@ const routes = [
         ]
     },
     {
-        path: '/flashcards',
+        path: '/flashcards/',
         name: 'flashcards',
-        component: FlashcardsPage
+        component: FlashcardsPage,
     },
 ]
 

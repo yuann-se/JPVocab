@@ -27,8 +27,7 @@
 
 <script setup lang="ts">
 import store, { IWord } from '@/store';
-import { shuffle } from '@/utils';
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 import { useRoute, LocationQueryValue } from 'vue-router';
 
 interface IProps {
@@ -45,8 +44,6 @@ const route = useRoute()
 const from = route.query.from
 const to = route.query.to
 
-onMounted(() => shuffle(props.wordsArr))
-
 const getData = (loc: LocationQueryValue | LocationQueryValue[]) => {
     switch (loc) {
         case ('Word'): {
@@ -62,12 +59,20 @@ const getData = (loc: LocationQueryValue | LocationQueryValue[]) => {
 const handleNext = (know: boolean) => {
     if (know) {
         const updatedWord = props.wordsArr[props.i]
+        if (updatedWord.progress === 100) return
         updatedWord.progress += 4
+        if (updatedWord.progress > 100) updatedWord.progress = 100
         store.dispatch('editWord', updatedWord)
     }
 
-    emit('increment', know)
-    isBackVisible.value = false
+    if (isBackVisible.value) {
+        isBackVisible.value = false
+        setTimeout(() => {
+            emit('increment', know)
+        }, 500);
+    } else {
+        emit('increment', know)
+    }
 }
 
 </script>
@@ -101,13 +106,13 @@ const handleNext = (know: boolean) => {
         font-weight: 500;
 
         &:nth-child(1) {
-            background-color: #ffead2;
-            color: #d08842;
+            background-color: $orangeLight;
+            color: $orangeDark;
         }
 
         &:nth-child(2) {
-            background-color: #cce9e4;
-            color: #518a81;
+            background-color: $greenLight;
+            color: $greenDark;
         }
     }
 }

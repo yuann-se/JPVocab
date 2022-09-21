@@ -7,7 +7,10 @@
             </button>
             <ul class="gamesList">
                 <li class="gameItemWrapper">
-                    <button class="gameItem" @click="isOptionsOpen = !isOptionsOpen">Flashcards</button>
+                    <button class="gameItem" @click="isOptionsOpen = !isOptionsOpen">
+                        <FlashCardsIcon />
+                        <span>Flashcards</span>
+                    </button>
                 </li>
 
                 <li class="gameItemWrapper"><button disabled class="gameItem">game_name</button></li>
@@ -18,14 +21,8 @@
             <transition name="options">
                 <div class="options" v-if="isOptionsOpen">
 
-                    <FlashcardsOption :option="optionsArr[0]" @click="handleClick(0)"
-                        :class="{selected: selectedOption === 0}" />
-
-                    <FlashcardsOption :option="optionsArr[1]" @click="handleClick(1)"
-                        :class="{selected: selectedOption === 1}" />
-
-                    <FlashcardsOption :option="optionsArr[2]" @click="handleClick(2)"
-                        :class="{selected: selectedOption === 2}" />
+                    <FlashcardsOption v-for="(opt, ind) in optionsArr" :key="ind" :option="opt"
+                        @click="handleClick(ind)" :class="{selected: selectedOption === ind}" />
 
                     <router-link :to="{name: 'flashcards', query: {'from': from, 'to': to}}" class="startBtn">
                         Start!</router-link>
@@ -42,6 +39,7 @@ import { useDisableScroll } from '@/utils';
 import router from '@/router/router';
 import { ref } from 'vue';
 import FlashcardsOption from './FlashcardsOption.vue';
+import FlashCardsIcon from './FlashCardsIcon.vue';
 
 export interface IOption {
     fromOpt: string
@@ -108,6 +106,8 @@ const handleClick = (optNumber: number) => {
 }
 
 .gameItem {
+    display: flex;
+    align-items: center;
     padding: 10px 20px;
     width: 300px;
     height: 70px;
@@ -122,6 +122,11 @@ const handleClick = (optNumber: number) => {
     &:disabled {
         background-color: $disabledGrey;
         pointer-events: none;
+    }
+
+    svg {
+        width: 45px;
+        margin-right: 15px;
     }
 }
 
@@ -142,8 +147,9 @@ const handleClick = (optNumber: number) => {
     padding: 20px 20px;
     margin-left: 30px;
     border-radius: 15px;
-    border: 2px solid $purple66;
     will-change: width;
+    background-color: $bg;
+    box-shadow: 1px 1px 5px 1px rgb(0 0 0 / 10%);
 }
 
 .startBtn {

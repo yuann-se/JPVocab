@@ -1,7 +1,11 @@
 <template>
-    <div class="app">
-        <router-view></router-view>
-    </div>
+    <router-view></router-view>
+
+    <!-- <router-view v-slot="{ Component }">
+        <transition name="main">
+            <component :is="Component" />
+        </transition>
+    </router-view> -->
 </template>
 
 <script lang="ts" setup>
@@ -12,6 +16,15 @@ onBeforeMount(() => store.dispatch('initialiseStore'))
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+// .main-enter-active,
+// .main-leave-active {
+//     opacity: 1;
+//     transition: opacity 1s ease;
+// }
 
+// .main-enter-from,
+// .main-leave-to {
+//     opacity: 0;
+// }
 </style>
