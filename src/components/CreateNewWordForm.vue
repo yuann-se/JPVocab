@@ -1,19 +1,22 @@
 <template>
     <div class="sectionWrapper">
         <div class="container">
-            <div class="form">
-                <label for="word">Word</label>
-                <div class="inputWrapper">
-                    <input type="text" autocomplete="off" name="word" v-model.trim="newWord.body">
+            <div class="content">
+                <div class="form">
+                    <label for="word">Word</label>
+                    <div class="inputWrapper">
+                        <input type="text" autocomplete="off" name="word" v-model.trim="newWord.body">
+                    </div>
+
+                    <CreateNewWordInput :list="newWord.reading" :input-name="'Reading'" :inputValue="readingRef"
+                        @update="handleUpdate" @add-item="handleAddItem" @delete-item="handleDeleteItem" />
+
+                    <CreateNewWordInput :list="newWord.translation" :input-name="'Translation'"
+                        :inputValue="translationRef" @update="handleUpdate" @add-item="handleAddItem"
+                        @delete-item="handleDeleteItem" />
+
+                    <button type="button" @click="addNewWord">{{wordToEdit.body ? 'Save' : 'Add'}}</button>
                 </div>
-
-                <CreateNewWordInput :list="newWord.reading" :input-name="'Reading'" :inputValue="readingRef"
-                    @update="handleUpdate" @add-item="handleAddItem" @delete-item="handleDeleteItem" />
-
-                <CreateNewWordInput :list="newWord.translation" :input-name="'Translation'" :inputValue="translationRef"
-                    @update="handleUpdate" @add-item="handleAddItem" @delete-item="handleDeleteItem" />
-
-                <button type="button" @click="addNewWord">{{wordToEdit.body ? 'Save' : 'Add'}}</button>
             </div>
         </div>
     </div>
@@ -101,16 +104,17 @@ const addNewWord = () => {
 @import '@/scss/variables';
 
 .sectionWrapper {
-    position: relative;
-    z-index: 300;
-    height: 150vh;
+    position: fixed;
+    width: 100vw;
+    top: 90px;
+    z-index: 400;
+    height: calc(100vh - 90px);
     backdrop-filter: blur(3px);
 }
 
-.container {
-    max-width: 900px;
-    padding-top: 30px;
-    padding-bottom: 30px;
+.content {
+    width: 100%;
+    padding: 40px;
     background-color: $bg;
     box-shadow: 0 0px 20px rgb(0 0 0 / 15%);
 }
@@ -124,7 +128,6 @@ const addNewWord = () => {
         padding: 0 15px;
         height: 40px;
         font-size: 18px;
-
     }
 
     label {

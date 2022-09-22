@@ -7,7 +7,7 @@
             </button>
             <ul class="gamesList">
                 <li class="gameItemWrapper">
-                    <button class="gameItem" @click="isOptionsOpen = !isOptionsOpen">
+                    <button class="gameItem">
                         <FlashCardsIcon />
                         <span>Flashcards</span>
                     </button>
@@ -19,7 +19,7 @@
             </ul>
 
             <transition name="options">
-                <div class="options" v-if="isOptionsOpen">
+                <div class="options">
 
                     <FlashcardsOption v-for="(opt, ind) in optionsArr" :key="ind" :option="opt"
                         @click="handleClick(ind)" :class="{selected: selectedOption === ind}" />
@@ -50,8 +50,6 @@ export interface IOption {
 useDisableScroll()
 
 const handleClose = () => router.push('/')
-
-const isOptionsOpen = ref<boolean>(false)
 
 const from = ref<string>('Word')
 const to = ref<string>('Translation')

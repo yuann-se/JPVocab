@@ -59,6 +59,8 @@ const deleteItem = (item: string) => { emit('deleteItem', { payload: item, input
 
     input {
         flex-grow: 1;
+        padding: 0 15px;
+        font-size: 18px;
     }
 
     &::before {

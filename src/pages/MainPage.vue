@@ -30,14 +30,23 @@ const isAddPanelOpen = computed<boolean>(() => { return store.state.isAddPanelOp
 <style lang="scss" scoped>
 .addPanel-enter-active,
 .addPanel-leave-active {
-    transform: none;
-    transition: all 0.5s ease;
+    // backdrop-filter: blur(3px);
+    transition: backdrop-filter 0.5s ease;
+
+    &:deep(.container) {
+        transform: none;
+        transition: transform 0.5s ease;
+    }
 }
 
 .addPanel-enter-from,
 .addPanel-leave-to {
-    backdrop-filter: none;
-    transform: translateY(-50vh);
+    backdrop-filter: blur(0);
+
+    &:deep(.container) {
+        transform: translateY(-100%);
+        transition: transform 0.5s ease;
+    }
 }
 
 

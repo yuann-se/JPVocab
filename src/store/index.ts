@@ -1,38 +1,43 @@
 import { createStore } from "vuex";
 
 export interface IWord {
-    id: string,
-    body: string,
-    reading: string[],
-    translation: string[],
-    isChecked: boolean,
+    id: string
+    body: string
+    reading: string[]
+    translation: string[]
+    isChecked: boolean
     progress: number
+    tags: string[]
 }
 
 export enum ESortBy { createdDate = 'Created date', progress = 'Progress', alphabetical = 'Alphabetical' }
 export enum ESortDirection { ascending = 'Ascending', descending = 'Descending' }
 
 export interface IStore {
-    words: IWord[],
-    searchQuery: string,
-    sortBy: ESortBy,
-    sortDirection: ESortDirection,
-    isAddPanelOpen: boolean,
-    isAnyChecked: boolean,
+    words: IWord[]
+    learnedWords: IWord[]
+    searchQuery: string
+    sortBy: ESortBy
+    sortDirection: ESortDirection
+    isAddPanelOpen: boolean
+    isAnyChecked: boolean
     wordToEdit: IWord
+    showLearned: boolean
 }
 
-export const emptyWord = { id: '', body: '', reading: [], translation: [], isChecked: false, progress: 0 }
+export const emptyWord: IWord = { id: '', body: '', reading: [], translation: [], isChecked: false, progress: 0, tags: [] }
 
 export default createStore<IStore>({
     state: () => ({
         words: [],
+        learnedWords: [],
         searchQuery: '',
         isAddPanelOpen: false,
         isAnyChecked: false,
         sortBy: ESortBy.createdDate,
         sortDirection: ESortDirection.ascending,
-        wordToEdit: { ...emptyWord }
+        wordToEdit: { ...emptyWord },
+        showLearned: false
     }),
 
     mutations: {
@@ -42,6 +47,10 @@ export default createStore<IStore>({
 
         SET_WORDS(state, arr: IWord[]) {
             state.words = arr
+        },
+
+        SET_LEARNED_WORDS(state, arr: IWord[]) {
+            state.learnedWords = arr
         },
 
         SET_SEARCH_QUERY(state, str: string) {
@@ -62,6 +71,10 @@ export default createStore<IStore>({
 
         SET_WORD_TO_EDIT(state, word: IWord) {
             state.wordToEdit = word
+        },
+
+        SET_SHOW_LEARNED(state, bool: boolean) {
+            state.showLearned = bool
         }
     },
 
@@ -75,10 +88,11 @@ export default createStore<IStore>({
                 }
             }
 
-            let newArray: IWord[];
+            let newArray: IWord[] = state.showLearned ? [...state.words, ...state.learnedWords] : [...state.words]
+
             if (state.sortDirection === ESortDirection.ascending) {
-                newArray = [...state.words].sort((word1, word2) => word1[getSortParams()] > word2[getSortParams()] ? 1 : -1)
-            } else newArray = [...state.words].sort((word1, word2) => word1[getSortParams()] < word2[getSortParams()] ? 1 : -1)
+                newArray = newArray.sort((word1, word2) => word1[getSortParams()] > word2[getSortParams()] ? 1 : -1)
+            } else newArray = newArray.sort((word1, word2) => word1[getSortParams()] < word2[getSortParams()] ? 1 : -1)
 
             if (state.searchQuery) newArray = newArray.filter(word => word.body.toLowerCase().includes(state.searchQuery.toLowerCase()))
 
@@ -109,26 +123,89 @@ export default createStore<IStore>({
         },
 
         deleteWords() {
-            const newWords = this.state.words.filter(word => !word.isChecked)
+            const newWords = [...this.state.words, ...this.state.learnedWords].filter(word => !word.isChecked)
             this.commit('SET_WORDS', newWords)
             this.commit('SET_IS_ANY_CHECKED', false)
         },
 
-        setIsChecked(_, word: IWord) {
-            const newWords = [...this.state.words];
-            for (const item of newWords) {
-                if (item.id === word.id) {
-                    item.isChecked = !item.isChecked
-                    break
+        addToLearned() {
+            const addWords = this.state.words.filter(word => word.isChecked)
+            const leftWords = this.state.words.filter(word => !word.isChecked)
+            addWords.forEach((item) => {
+                item.progress = 100
+                item.isChecked = false
+            })
+
+            this.commit('SET_WORDS', leftWords)
+            this.commit('SET_LEARNED_WORDS', [...this.state.learnedWords, ...addWords])
+
+            for (const item of this.state.learnedWords) {
+                if (item.isChecked) {
+                    this.dispatch('setIsChecked', item)
                 }
             }
-            this.commit('SET_WORDS', newWords)
+            this.commit('SET_IS_ANY_CHECKED', false)
+        },
+
+        removeFromLearned() {
+            const removeWords = this.state.learnedWords.filter(word => word.isChecked)
+            const leftWords = this.state.learnedWords.filter(word => !word.isChecked)
+            removeWords.forEach((item) => {
+                item.progress = 50
+                item.isChecked = false
+            })
+
+            this.commit('SET_WORDS', [...this.state.words, ...removeWords])
+            this.commit('SET_LEARNED_WORDS', leftWords)
 
             for (const item of this.state.words) {
                 if (item.isChecked) {
-                    this.commit('SET_IS_ANY_CHECKED', true)
+                    this.dispatch('setIsChecked', item)
+                }
+            }
+            this.commit('SET_IS_ANY_CHECKED', false)
+        },
+
+        setIsChecked(_, word: IWord) {
+            const words = [...this.state.words]
+            const learnedWords = [...this.state.learnedWords]
+
+            let isFound = false
+            for (const item of words) {
+                if (item.id === word.id) {
+                    item.isChecked = !item.isChecked
+                    this.commit('SET_WORDS', words)
+                    isFound = true
                     break
-                } else this.commit('SET_IS_ANY_CHECKED', false)
+                }
+            }
+
+            if (!isFound) {
+                for (const item of learnedWords) {
+                    if (item.id === word.id) {
+                        item.isChecked = !item.isChecked
+                        this.commit('SET_LEARNED_WORDS', learnedWords)
+                        break
+                    }
+                }
+            }
+        },
+
+        scanAllIfAnyChecked() {
+            for (const item of this.state.words) {
+                if (item.isChecked) {
+                    if (!this.state.isAnyChecked) this.commit('SET_IS_ANY_CHECKED', true)
+                    break
+                }
+            }
+
+            if (!this.state.isAnyChecked && this.state.showLearned) {
+                for (const item of this.state.learnedWords) {
+                    if (item.isChecked) {
+                        if (!this.state.isAnyChecked) this.commit('SET_IS_ANY_CHECKED', true)
+                        break
+                    }
+                }
             }
         },
 
@@ -150,6 +227,18 @@ export default createStore<IStore>({
 
         setWordToEdit(_, word: IWord) {
             this.commit('SET_WORD_TO_EDIT', word)
+        },
+
+        setShowLearned(_, bool: boolean) {
+            if (this.state.showLearned) {
+                for (const item of this.state.learnedWords) {
+                    if (item.isChecked) {
+                        this.dispatch('setIsChecked', item)
+                    }
+                }
+            }
+            this.commit('SET_SHOW_LEARNED', bool)
+            this.dispatch('scanAllIfAnyChecked')
         }
 
     }

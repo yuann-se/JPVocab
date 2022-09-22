@@ -10,7 +10,7 @@
             <span class="readingsList" v-for="item in props.word.translation" :key="item">{{item}}</span>
         </div>
         <div class="segment progress">
-            <ProgressBar class="progressBar" :progress="props.word.progress" />
+            <ProgressBar class="progressBar" :progress="word.progress" :key="word.progress" />
             <CheckMarkIcon v-if="word.progress === 100" class="learnedCheck" />
             <span v-else>{{props.word.progress}}%</span>
         </div>
@@ -40,7 +40,10 @@ interface IProps {
 
 const props = defineProps<IProps>()
 
-const setIsChecked = () => store.dispatch('setIsChecked', props.word)
+const setIsChecked = () => {
+    store.dispatch('setIsChecked', props.word)
+    store.dispatch('scanAllIfAnyChecked')
+}
 
 const handleEdit = () => {
     store.dispatch('setWordToEdit', { ...props.word })

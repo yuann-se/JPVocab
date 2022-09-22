@@ -16,7 +16,7 @@ const props = defineProps<IProps>()
 
 const style = props.progress > 0
     ? { strokeDasharray: `${1.22 * props.progress} 122` }
-    : { strokeDasharray: `122 0` }
+    : { strokeDasharray: `0 122` }
 
 const color = props.progress < 15
     ? '#d84f6a'

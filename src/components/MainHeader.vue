@@ -36,9 +36,11 @@ const openAddPanel = () => {
 @import '@/scss/variables';
 
 .header {
-    position: relative;
-    z-index: 400;
-    height: 100px;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    z-index: 500;
+    height: 90px;
     background-color: $purple66;
 }
 
