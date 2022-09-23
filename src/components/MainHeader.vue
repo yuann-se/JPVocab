@@ -3,6 +3,7 @@
         <div class="container">
 
             <img class="logo" src="../assets/logo.png" alt="Logo">
+
             <HeaderSearch />
 
             <button class="add" @click="openAddPanel" :class="{active: isAddPanelOpen}">
@@ -71,6 +72,7 @@ const openAddPanel = () => {
 .practice {
     position: relative;
     margin-right: 5px;
+    font-size: 0;
 
     &::before {
         content: '';
@@ -79,6 +81,57 @@ const openAddPanel = () => {
         background-color: #ffead2;
         opacity: .4;
         border-radius: 7px;
+    }
+}
+
+@media (max-width: $bpM) {
+    .add {
+        position: fixed;
+        right: 50px;
+        bottom: 50px;
+        transform: scale(1.2);
+        margin: 0;
+
+        &:deep(circle) {
+            opacity: .9;
+        }
+
+        &:deep(rect) {
+            fill: $orangeSat;
+        }
+
+        &.active {
+            transform: scale(1.2) rotate(225deg);
+        }
+    }
+
+    .practice {
+        margin-left: auto;
+    }
+
+    .logo {
+        margin-right: 0;
+    }
+}
+
+@media (max-width: $bpS) {
+    .header {
+        height: 70px;
+    }
+
+    .logo {
+        width: 45px;
+    }
+
+    .searchInput {
+        height: 40px;
+        min-width: 0;
+    }
+
+    .practice {
+        &:deep(svg) {
+            width: 30px;
+        }
     }
 }
 </style>

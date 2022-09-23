@@ -1,13 +1,19 @@
 <template >
-    <div class="card-wrapper" :class="{isChecked: props.word.isChecked}">
+    <div class="cardWrapper" :class="{isChecked: props.word.isChecked}" ref="wrapperRef">
         <div class="segment name">
             {{props.word.body}}
         </div>
         <div class="segment reading">
-            <span class="readingsList" v-for="item in props.word.reading" :key="item">{{item}}</span>
+            <span class="readingsList" v-for="item, ind in props.word.reading" :key="item">
+                {{item}}
+                <span v-if="ind + 1 < props.word.reading.length">,&ensp;</span>
+            </span>
+
         </div>
         <div class="segment translation">
-            <span class="readingsList" v-for="item in props.word.translation" :key="item">{{item}}</span>
+            <span class="readingsList" v-for="item, ind in props.word.translation" :key="item">
+                {{item}}<span v-if="ind + 1 < props.word.translation.length">,&ensp;</span>
+            </span>
         </div>
         <div class="segment progress">
             <ProgressBar class="progressBar" :progress="word.progress" :key="word.progress" />
@@ -29,10 +35,12 @@
 </template>
 
 <script lang="ts" setup>
-import store, { IWord } from '@/store';
-import EditWordIcon from '@/components/icons/EditWordIcon.vue';
-import CheckMarkIcon from '@/components/icons/CheckMarkIcon.vue';
-import ProgressBar from './ProgressBar.vue';
+import store, { IWord } from '@/store'
+import EditWordIcon from '@/components/icons/EditWordIcon.vue'
+import CheckMarkIcon from '@/components/icons/CheckMarkIcon.vue'
+import ProgressBar from './ProgressBar.vue'
+import { onLongPress } from '@vueuse/core'
+import { ref } from 'vue'
 
 interface IProps {
     word: IWord
@@ -50,13 +58,22 @@ const handleEdit = () => {
     store.dispatch('setIsAddPanelOpen', true);
 }
 
+const wrapperRef = ref<HTMLDivElement | null>(null)
+
+onLongPress(wrapperRef,
+    () => {
+        setIsChecked()
+    },
+    { delay: 300 },
+)
+
 </script>
 
 <style lang="scss" scoped>
 @import '@/scss/variables';
 @import '@/scss/mixins';
 
-.card-wrapper {
+.cardWrapper {
     position: relative;
     display: grid;
     grid-template-columns: repeat(12, 1fr);
@@ -75,18 +92,26 @@ const handleEdit = () => {
 }
 
 .segment {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
     &.name {
         grid-column: 1 / 4;
         font-size: 22px;
+        font-weight: 500;
     }
 
     &.reading {
         grid-column: 4 / 7;
-        font-size: 18px;
+        font-size: 20px;
+        font-weight: 500;
     }
 
     &.translation {
         grid-column: 7 / 10;
+        font-size: 18px;
     }
 
     .readingsList {
@@ -128,9 +153,6 @@ const handleEdit = () => {
 
     &.checkbox {
         grid-column: 12;
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
         cursor: pointer;
 
         &::before {
@@ -166,6 +188,68 @@ const handleEdit = () => {
             left: -4px;
             bottom: -2px;
             font-size: 0;
+        }
+    }
+}
+
+@media (max-width: $bpM) {
+
+    .cardWrapper {
+        column-gap: 20px;
+    }
+
+    .segment {
+
+        &.name,
+        &.progress,
+        &.edit,
+        &.checkbox {
+            grid-row: 1/3;
+        }
+
+        &.name {
+            grid-column: 1/4;
+        }
+
+        &.reading,
+        &.translation {
+            grid-column: 4/10;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+        }
+    }
+}
+
+@media (max-width: $bpS) {
+
+    .cardWrapper {
+        column-gap: 15px;
+        row-gap: 5px;
+    }
+
+    .segment {
+        &.checkbox {
+            display: none;
+        }
+
+        &.progress {
+            grid-row: 1/5;
+            grid-column: 10/11;
+        }
+
+        &.edit {
+            grid-row: 1/5;
+            grid-column: 12;
+        }
+
+        &.name,
+        &.reading,
+        &.translation {
+            grid-column: 1/10;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: flex-start;
         }
     }
 }

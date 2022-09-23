@@ -159,4 +159,15 @@ onUnmounted(() => {
         margin-left: 5px;
     }
 }
+
+@media (max-width: $bpS) {
+    .sortWrapper {
+        width: 140px;
+        margin-right: 0px;
+    }
+
+    .sortIcon {
+        margin-left: 0;
+    }
+}
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <input class="search-input" type="text" v-model.trim="searchQuery">
+    <input class="searchInput" type="text" v-model.trim="searchQuery">
 </template>
 
 <script lang="ts" setup>
@@ -20,14 +20,21 @@ const searchQuery: WritableComputedRef<string> = computed<string>({
 <style lang="scss" scoped>
 @import '@/scss/variables';
 
-.search-input {
-    height: 50px;
+.searchInput {
+    height: 45px;
     min-width: 350px;
     padding: 0 15px;
+    margin-right: 15px;
 
     font-size: 20px;
     color: $black;
     background-color: white;
     border-radius: 30px;
+}
+
+@media (max-width: $bpM) {
+    .searchInput {
+        min-width: 300px;
+    }
 }
 </style>

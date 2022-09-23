@@ -21,3 +21,50 @@
     align-items: center;
     background-color: rgba($color: #000000, $alpha: .5);
 }
+
+@mixin actionBtn($textColor, $bgColor, $opacity, $transform ) {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-right: 30px;
+
+    svg {
+        fill: $textColor;
+        transform: $transform;
+    }
+
+    span {
+        font-size: 16px;
+        line-height: 20px;
+        color: $textColor;
+        transition: color .2s ease;
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        z-index: -1;
+        inset: -1px -6px -1px -3px;
+        background-color: $bgColor;
+        opacity: $opacity;
+        border-radius: 20px;
+        transition: background-color .2s ease, opacity .2s ease;
+    }
+
+    &:disabled {
+        pointer-events: none;
+
+        svg {
+            fill: $disabledGrey;
+        }
+
+        span {
+            color: $disabledGrey;
+        }
+
+        &::before {
+            background-color: $disabledGrey;
+            opacity: .1;
+        }
+    }
+}

@@ -13,7 +13,7 @@
 import router from '@/router/router';
 import ChooseGameIconVue from './icons/ChooseGameIcon.vue';
 import ContinueIconVue from './icons/ContinueIcon.vue';
-import HomeIconVue from './icons/HomeIcon.vue';
+import ListIconVue from './icons/ListIcon.vue';
 import RestartIconVue from './icons/RestartIcon.vue';
 
 
@@ -30,7 +30,7 @@ const getIcon = () => {
         case ('continue'): return ContinueIconVue
         case ('restart'): return RestartIconVue
         case ('choose'): return ChooseGameIconVue
-        case ('home'): return HomeIconVue
+        case ('home'): return ListIconVue
     }
 }
 
@@ -54,10 +54,10 @@ const handleClick = () => {
 .actionBtn {
     display: flex;
     align-items: center;
-    width: 350px;
-    height: 100px;
+    width: 100%;
+    height: fit-content;
+    min-height: 100px;
     padding: 15px;
-    margin-left: auto;
     text-align: start;
 
     background-color: $bg;
@@ -85,6 +85,16 @@ const handleClick = () => {
 
     svg {
         margin-right: 20px;
+        min-width: 30px;
+    }
+}
+
+@media (max-width: $bpL) {
+    .actionBtn {
+        svg {
+            min-width: 25px;
+            margin-right: 15px;
+        }
     }
 }
 </style>

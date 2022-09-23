@@ -192,6 +192,7 @@ export default createStore<IStore>({
         },
 
         scanAllIfAnyChecked() {
+            this.commit('SET_IS_ANY_CHECKED', false)
             for (const item of this.state.words) {
                 if (item.isChecked) {
                     if (!this.state.isAnyChecked) this.commit('SET_IS_ANY_CHECKED', true)

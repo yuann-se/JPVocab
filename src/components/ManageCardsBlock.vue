@@ -3,7 +3,11 @@
         <div class="container">
             <SortBlock />
 
-            <div class="btnsWrapper">
+            <button class="burger" @click="showMenu = !showMenu">
+                <BurgerIcon />
+            </button>
+
+            <div class="btnsWrapper" :class="{isVisible: showMenu}">
                 <button class="actionBtn showLearned" @click="handleShowLearned">
                     <ShowIcon v-if="showLearned" />
                     <HideIcon v-else />
@@ -23,6 +27,7 @@
 
                 <button class="actionBtn delete" :disabled="!isAnyChecked" @click="setIsModalOpen(true, 'delete')">
                     <DeleteWordIcon />
+                    <span v-if="showMenu">Delete</span>
                 </button>
             </div>
 
@@ -65,9 +70,11 @@ import OkIcon from './icons/OkIcon.vue';
 import RemoveIcon from './icons/RemoveIcon.vue';
 import HideIcon from './icons/HideIcon.vue';
 import ShowIcon from './icons/ShowIcon.vue';
+import BurgerIcon from './icons/BurgerIcon.vue';
 
 const isAnyChecked = computed<boolean>(() => { return store.state.isAnyChecked })
 const showLearned = computed<boolean>(() => { return store.state.showLearned })
+const showMenu = ref(false)
 
 const isModalOpen = ref({ open: false, modalName: '' })
 const setIsModalOpen = (value: boolean, modalName = '') => {
@@ -98,6 +105,7 @@ const handleShowLearned = () => {
 
 <style lang="scss" scoped>
 @import '@/scss/variables';
+@import '@/scss/mixins';
 
 .wrapper {
     position: fixed;
@@ -110,6 +118,7 @@ const handleShowLearned = () => {
 }
 
 .container {
+    position: relative;
     display: flex;
     height: 100%;
     align-items: center;
@@ -120,90 +129,27 @@ const handleShowLearned = () => {
     display: flex;
 }
 
-.actionBtn {
+.burger {
+    display: none;
+}
 
-    &.learned,
-    &.removeLearned,
-    &.showLearned {
-        position: relative;
-        display: flex;
-        align-items: center;
-        margin-right: 30px;
+.showLearned {
+    @include actionBtn($pinkDE, $selected, .4, scale(.75))
+}
 
-        svg {
-            fill: $greenSat;
-            transform: scale(.9);
-        }
+.removeLearned {
+    @include actionBtn($orangeSat, $orangeLight, .4, scale(.75))
+}
 
-        span {
-            font-size: 16px;
-            line-height: 20px;
-            color: $greenSat;
-            transition: color .2s ease;
-        }
+.learned {
+    @include actionBtn($greenSat, $greenLight, .2, scale(.9))
+}
 
-        &::before {
-            content: '';
-            position: absolute;
-            z-index: -1;
-            inset: -1px -6px -1px -3px;
-            background-color: $greenLight;
-            opacity: .2;
-            border-radius: 20px;
-            transition: background-color .2s ease, opacity .2s ease;
-        }
-    }
+.delete {
+    @include actionBtn($red, $red, .05, scale(.7));
 
-    &.showLearned {
-        span {
-            color: $pinkDE;
-        }
-
-        &::before {
-            background-color: $selected;
-            opacity: .4;
-        }
-
-        svg {
-            margin-right: 2px;
-        }
-    }
-
-    &.removeLearned {
-        span {
-            color: $orangeSat;
-        }
-
-        svg {
-            fill: $orangeSat;
-            transform: scale(.75);
-        }
-
-        &::before {
-            background-color: $orangeLight;
-            opacity: .4;
-        }
-    }
-
-    svg {
-        transition: fill .2s ease;
-    }
-
-    &:disabled {
-        pointer-events: none;
-
-        svg {
-            fill: $disabledGrey;
-        }
-
-        span {
-            color: $disabledGrey;
-        }
-
-        &::before {
-            background-color: $disabledGrey;
-            opacity: .1;
-        }
+    &::before {
+        inset: -1px -3px;
     }
 }
 
@@ -246,6 +192,80 @@ const handleShowLearned = () => {
 
     &:deep(>div) {
         transform: scale(.8);
+    }
+}
+
+@media (max-width: $bpL) {
+    .burger {
+        display: block;
+        position: relative;
+
+        &::before {
+            content: '';
+            position: absolute;
+            z-index: -1;
+            inset: -5px;
+            background-color: $selected;
+            border-radius: 50%;
+        }
+    }
+
+    .btnsWrapper {
+        position: absolute;
+        top: 50px;
+        right: 50px;
+        padding: 20px;
+        flex-direction: column;
+        width: 300px;
+        height: fit-content;
+
+        background-color: white;
+        visibility: hidden;
+        opacity: 0;
+        transform: translateY(-50px);
+        transition: all .2s ease;
+        box-shadow: 0 0 10px 1px rgb(0 0 0 / 10%);
+        border-radius: 10px;
+
+        &.isVisible {
+            visibility: visible;
+            opacity: 1;
+            transform: none;
+        }
+
+        .actionBtn {
+            margin-right: 0;
+
+            &::before {
+                z-index: 0;
+            }
+
+            &:not(:last-child) {
+                margin-bottom: 10px;
+            }
+
+            span {
+                font-size: 18px;
+                line-height: 24px;
+            }
+        }
+    }
+}
+
+@media (max-width: $bpM) {
+
+    .btnsWrapper {
+        right: 30px;
+    }
+}
+
+@media (max-width: $bpS) {
+    .wrapper {
+        top: 70px;
+    }
+
+    .btnsWrapper {
+        right: 15px;
     }
 }
 </style>

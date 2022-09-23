@@ -1,9 +1,3 @@
-import { onMounted, onUnmounted } from "vue"
-
-export const useDisableScroll = () => {
-    onMounted(() => { document.body.style.overflowY = 'hidden' })
-    onUnmounted(() => { document.body.style.overflowY = 'auto' })
-}
 // eslint-disable-next-line
 export const shuffle = (array: any[]) => {
     let currentIndex = array.length, randomIndex;

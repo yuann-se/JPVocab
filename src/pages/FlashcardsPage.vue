@@ -3,6 +3,10 @@
 
         <header class="header" v-if="i<wordsArr.length">
             <div class="container">
+                <button class="back" @click="router.push('/')">
+                    <ArrowBackIcon />
+                    <HomeIcon />
+                </button>
                 <span class="counter">{{i < wordsArr.length ? i + 1 : wordsArr.length}}/{{wordsArr.length}}</span>
                         <span class="progressBar"></span>
             </div>
@@ -24,6 +28,9 @@ import { shuffle } from '@/utils';
 import { computed, ref } from 'vue';
 import FlashcardsCard from '../components/FlashcardsCard.vue';
 import FlashcardsFinishScreen from '../components/FlashcardsFinishScreen.vue';
+import ArrowBackIcon from '@/components/icons/ArrowBackIcon.vue';
+import HomeIcon from '@/components/icons/HomeIcon.vue';
+import router from '@/router/router';
 
 const i = ref<number>(0)
 const words = computed(() => { return store.state.words })
@@ -60,10 +67,8 @@ const handleRestartGame = () => {
 }
 
 .container {
+    position: relative;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
 }
 
 .header {
@@ -71,6 +76,24 @@ const handleRestartGame = () => {
     height: 100px;
     background-color: white;
     box-shadow: 0 0 5px rgb(0 0 0 / 10%);
+
+    .back {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        align-items: center;
+        opacity: .9;
+
+        &::before {
+            content: '';
+            position: absolute;
+            z-index: -1;
+            inset: -5px -10px;
+            border-radius: 20px;
+            background-color: $selected;
+        }
+    }
 
     .counter {
         display: block;
@@ -102,5 +125,15 @@ const handleRestartGame = () => {
 .finish-leave-to {
     opacity: 0;
     transform: scale(.8);
+}
+
+@media (max-width: $bpS) {
+    .header {
+        height: 80px;
+
+        .counter {
+            line-height: 80px;
+        }
+    }
 }
 </style>

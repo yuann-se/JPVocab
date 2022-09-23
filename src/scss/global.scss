@@ -88,6 +88,7 @@ body {
 }
 
 * {
+    -webkit-tap-highlight-color: transparent;
     font-family: 'NotoSansJP', 'NeueHaasDisplay', sans-serif;
     font-weight: 400;
     box-sizing: border-box;
@@ -99,4 +100,22 @@ body {
     max-width: 1100px;
     margin: 0 auto;
     padding: 0 70px 0 50px;
+}
+
+@media (max-width: $bpL) {
+    .container {
+        padding: 0 50px;
+    }
+}
+
+@media (max-width: $bpM) {
+    .container {
+        padding: 0 30px;
+    }
+}
+
+@media (max-width: $bpS) {
+    .container {
+        padding: 0 15px;
+    }
 }

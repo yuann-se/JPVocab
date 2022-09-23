@@ -123,7 +123,7 @@ const handleNext = (know: boolean) => {
     width: 100%;
     height: 500px;
     perspective: 1000px;
-    margin-bottom: 50px;
+    margin-top: 15px;
 
     &.active .card-inner {
         transform: rotateX(-180deg);
@@ -143,6 +143,7 @@ const handleNext = (know: boolean) => {
     position: absolute;
     width: 100%;
     height: 100%;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -183,5 +184,22 @@ const handleNext = (know: boolean) => {
 .slide-leave-to {
     opacity: 0;
     transform: translateX(-100%);
+}
+
+@media (max-width: $bpS) {
+    .actionBtn {
+        font-size: 18px;
+    }
+
+    .card {
+
+        &.active .card-inner {
+            transform: rotateY(-180deg);
+        }
+    }
+
+    .card-back {
+        transform: rotateY(-180deg);
+    }
 }
 </style>

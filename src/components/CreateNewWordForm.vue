@@ -1,5 +1,5 @@
 <template>
-    <div class="sectionWrapper">
+    <div class="sectionWrapper" v-disable-scroll>
         <div class="container">
             <div class="content">
                 <div class="form">
@@ -26,9 +26,6 @@
 import store, { IWord, emptyWord } from '@/store';
 import { computed, ref } from 'vue';
 import CreateNewWordInput from './CreateNewWordInput.vue';
-import { useDisableScroll } from '@/utils';
-
-useDisableScroll()
 
 const wordToEdit = computed(() => { return store.state.wordToEdit })
 console.log(wordToEdit.value.body)
@@ -145,6 +142,20 @@ const addNewWord = () => {
         font-weight: 700;
         color: white;
         background-color: $pinkF8;
+    }
+}
+
+@media (max-width: $bpS) {
+    .sectionWrapper {
+        top: 70px;
+    }
+
+    .container {
+        padding: 0;
+    }
+
+    .form {
+        width: 100%;
     }
 }
 </style>

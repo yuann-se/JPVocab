@@ -1,5 +1,5 @@
 <template>
-    <div class="modalWrapper" @click="handleClose">
+    <div class="modalWrapper" @click="handleClose" v-disable-scroll>
         <div v-if="props.isModalOpen" class="content" @click.stop>
             <span class="text">{{props.caption}}</span>
             <slot></slot>
@@ -14,9 +14,6 @@
 
 <script lang="ts" setup>
 import CloseIcon from '@/components/icons/CloseIcon.vue';
-import { useDisableScroll } from '@/utils';
-
-useDisableScroll()
 
 interface IProps {
     isModalOpen: boolean
@@ -68,5 +65,12 @@ const handleClose = () => {
     position: absolute;
     top: 10px;
     right: 10px;
+}
+
+@media(max-width: $bpS) {
+    .content {
+        width: 300px;
+        padding: 20px;
+    }
 }
 </style>

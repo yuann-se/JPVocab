@@ -35,7 +35,6 @@
                             :to-repeat="chart.learning" @continue="emit('continueGame')"
                             @restart="emit('restartGame')" />
                     </div>
-
                 </div>
             </div>
         </div>
@@ -122,7 +121,8 @@ const emit = defineEmits(['continueGame', 'restartGame'])
 }
 
 .diagramWrapper {
-    width: fit-content;
+    min-width: 260px;
+    margin-right: 40px;
 
     &:deep(svg) {
         opacity: .9;
@@ -182,6 +182,59 @@ const emit = defineEmits(['continueGame', 'restartGame'])
                 font-weight: 500;
             }
         }
+    }
+}
+
+@media (max-width: $bpL) {
+    .content {
+        padding: 40px 30px 40px 40px;
+    }
+}
+
+@media (max-width: $bpM) {
+    .inner {
+        flex-direction: column;
+
+        &>div {
+            width: 100%;
+        }
+    }
+
+    .diagramWrapper {
+        margin-right: 0;
+        margin-bottom: 50px;
+
+        svg {
+            display: block;
+            margin: 0 auto;
+        }
+    }
+
+    .legendWrapper {
+        width: fit-content;
+        margin: 0 auto;
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: $bpS) {
+    .finishScreenSection {
+        padding: 0;
+    }
+
+    .container {
+        padding: 0;
+    }
+
+    .content {
+        padding: 20px;
+        padding-top: 50px;
+        border-radius: 0;
+    }
+
+    .legendWrapper {
+        margin: 0;
+        margin-bottom: 20px;
     }
 }
 </style>

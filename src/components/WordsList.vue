@@ -1,5 +1,5 @@
 <template>
-    <div class="cards-wrapper">
+    <div class="cardsWrapper">
         <div class=" container">
             <WordCard v-for="word in words" :key="word.id" :word='word' />
         </div>
@@ -18,10 +18,16 @@ const words = computed(() => { return store.getters.sortedWords })
 <style lang="scss" scoped>
 @import '@/scss/variables';
 
-.cards-wrapper {
+.cardsWrapper {
     position: absolute;
     width: 100vw;
     top: 150px;
-    padding-top: 50px;
+    padding-top: 30px;
+}
+
+@media(max-width: $bpS) {
+    .cardsWrapper {
+        padding-top: 0;
+    }
 }
 </style>

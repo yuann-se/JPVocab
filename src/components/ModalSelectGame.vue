@@ -1,5 +1,5 @@
 <template>
-    <div class="modalWrapper" @click="handleClose">
+    <div class="modalWrapper" @click="handleClose" v-disable-scroll>
         <div class="content" @click.stop>
 
             <button class="closeBtn" @click="handleClose">
@@ -35,7 +35,6 @@
 
 <script lang="ts" setup>
 import CloseIcon from '@/components/icons/CloseIcon.vue';
-import { useDisableScroll } from '@/utils';
 import router from '@/router/router';
 import { ref } from 'vue';
 import FlashcardsOption from './FlashcardsOption.vue';
@@ -46,8 +45,6 @@ export interface IOption {
     toOpt: string
     turned: boolean
 }
-
-useDisableScroll()
 
 const handleClose = () => router.push('/')
 
@@ -85,13 +82,15 @@ const handleClick = (optNumber: number) => {
 .modalWrapper {
     @include modalOverlay;
     overflow-y: scroll;
-    padding: 50px;
+    padding: 50px 70px 50px 50px;
 }
 
 .content {
     position: relative;
     display: flex;
     padding: 50px;
+    width: 100%;
+    max-width: 1000px;
 
     border-radius: 5px;
     background-color: white;
@@ -103,11 +102,17 @@ const handleClick = (optNumber: number) => {
     right: 10px;
 }
 
+.gamesList {
+    width: 100%;
+    max-width: 300px;
+}
+
 .gameItem {
     display: flex;
     align-items: center;
+    justify-content: center;
     padding: 10px 20px;
-    width: 300px;
+    width: 100%;
     height: 70px;
     background-color: $purple66;
 
@@ -141,9 +146,10 @@ const handleClick = (optNumber: number) => {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 400px;
-    padding: 20px 20px;
-    margin-left: 30px;
+    width: 100%;
+    min-width: 400px;
+    padding: 20px;
+    margin-left: 50px;
     border-radius: 15px;
     will-change: width;
     background-color: $bg;
@@ -155,7 +161,6 @@ const handleClick = (optNumber: number) => {
     width: 150px;
     height: 50px;
     margin: 0 auto;
-    margin-top: 25px;
     padding: 5px 15px;
 
     font-size: 20px;
@@ -189,5 +194,89 @@ const handleClick = (optNumber: number) => {
 .options-leave-to {
     opacity: 0;
     max-width: 0;
+}
+
+@media (max-width: $bpL) {
+
+    .modalWrapper {
+        align-items: flex-start;
+        padding: 50px;
+    }
+
+    .content {
+        flex-direction: column;
+        align-items: center;
+        width: fit-content;
+    }
+
+    .gamesList {
+        max-width: none;
+        margin-bottom: 30px;
+    }
+
+    .options {
+        margin-left: 0;
+    }
+}
+
+@media (max-width: $bpM) {
+
+    .content {
+        padding: 30px;
+    }
+
+    .options {
+        min-width: 350px;
+        padding: 10px;
+    }
+
+    .optionWrapper {
+        font-size: 22px;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    .gamesList {
+        margin-bottom: 20px;
+    }
+
+    .gameItemWrapper:not(:last-child) {
+        margin-bottom: 15px;
+    }
+}
+
+@media (max-width: $bpS) {
+
+    .modalWrapper {
+        padding: 0;
+    }
+
+    .content {
+        padding: 50px;
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+    }
+
+    .options {
+        min-width: 280px;
+    }
+
+    .optionWrapper {
+        font-size: 18px;
+    }
+
+    .gamesList {
+        min-width: 280px;
+    }
+
+    .gameItem {
+        font-size: 25px;
+    }
+
+    .gameItemWrapper:not(:last-child) {
+        margin-bottom: 15px;
+    }
+
 }
 </style>

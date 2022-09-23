@@ -8,7 +8,12 @@ store.subscribe((_, state) => {
     localStorage.setItem('JPVocabStore', JSON.stringify(state));
 })
 
-createApp(App)
-    .use(router)
+const app = createApp(App)
+app.use(router)
     .use(store)
     .mount('#app')
+
+app.directive("disable-scroll", {
+    mounted() { document.body.style.overflowY = 'hidden' },
+    unmounted() { document.body.style.overflowY = 'auto' }
+})
