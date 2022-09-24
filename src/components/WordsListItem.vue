@@ -1,5 +1,6 @@
 <template >
-    <div class="cardWrapper" :class="{isChecked: props.word.isChecked}" ref="wrapperRef">
+    <div class="cardWrapper" :class="{isChecked: props.word.isChecked, selectionMode: props.isSelectionMode}"
+        ref="wrapperRef" @click="handleWrapperClick">
         <div class="segment name">
             {{props.word.body}}
         </div>
@@ -40,13 +41,16 @@ import EditWordIcon from '@/components/icons/EditWordIcon.vue'
 import CheckMarkIcon from '@/components/icons/CheckMarkIcon.vue'
 import ProgressBar from './ProgressBar.vue'
 import { onLongPress } from '@vueuse/core'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 
 interface IProps {
     word: IWord
+    isSelectionMode: boolean
 }
 
 const props = defineProps<IProps>()
+
+const isAnyChecked = computed(() => { return store.state.isAnyChecked })
 
 const setIsChecked = () => {
     store.dispatch('setIsChecked', props.word)
@@ -59,13 +63,24 @@ const handleEdit = () => {
 }
 
 const wrapperRef = ref<HTMLDivElement | null>(null)
+const emit = defineEmits(['changeMode'])
 
 onLongPress(wrapperRef,
     () => {
-        setIsChecked()
+        if (window.innerWidth <= 700) {
+            setIsChecked()
+            emit('changeMode')
+        }
     },
-    { delay: 300 },
+    { delay: 400 },
 )
+
+const handleWrapperClick = () => {
+    if (props.isSelectionMode) {
+        setIsChecked()
+        if (!isAnyChecked.value) emit('changeMode')
+    }
+}
 
 </script>
 
@@ -104,13 +119,13 @@ onLongPress(wrapperRef,
     }
 
     &.reading {
-        grid-column: 4 / 7;
+        grid-column: 4 / 8;
         font-size: 20px;
         font-weight: 500;
     }
 
     &.translation {
-        grid-column: 7 / 10;
+        grid-column: 8 / 10;
         font-size: 18px;
     }
 
@@ -196,6 +211,7 @@ onLongPress(wrapperRef,
 
     .cardWrapper {
         column-gap: 20px;
+        row-gap: 10px;
     }
 
     .segment {
@@ -207,16 +223,48 @@ onLongPress(wrapperRef,
             grid-row: 1/3;
         }
 
+        &.checkbox {
+            display: none;
+        }
+
         &.name {
             grid-column: 1/4;
         }
 
         &.reading,
         &.translation {
-            grid-column: 4/10;
+            grid-column: 4/11;
             flex-direction: row;
             flex-wrap: wrap;
             justify-content: flex-start;
+        }
+
+        &.progress {
+            grid-column: 11;
+        }
+
+        &.edit {
+            grid-column: 12;
+        }
+    }
+
+    .cardWrapper.selectionMode>.segment {
+        &.checkbox {
+            display: flex;
+            grid-column: 12;
+        }
+
+        &.reading,
+        &.translation {
+            grid-column: 4/10;
+        }
+
+        &.progress {
+            grid-column: 10;
+        }
+
+        &.edit {
+            grid-column: 11;
         }
     }
 }
@@ -225,22 +273,28 @@ onLongPress(wrapperRef,
 
     .cardWrapper {
         column-gap: 15px;
-        row-gap: 5px;
+        row-gap: 0;
+        padding: 10px 15px;
+        margin-bottom: 15px;
     }
 
     .segment {
         &.checkbox {
-            display: none;
+            grid-row: 1/5;
         }
 
         &.progress {
             grid-row: 1/5;
-            grid-column: 10/11;
+            grid-column: 10/12;
         }
 
         &.edit {
             grid-row: 1/5;
             grid-column: 12;
+        }
+
+        &.name {
+            grid-row: 1;
         }
 
         &.name,
@@ -250,6 +304,23 @@ onLongPress(wrapperRef,
             flex-direction: row;
             flex-wrap: wrap;
             justify-content: flex-start;
+        }
+    }
+
+    .cardWrapper.selectionMode>.segment {
+
+        &.name,
+        &.reading,
+        &.translation {
+            grid-column: 1/9;
+        }
+
+        &.progress {
+            grid-column: 9/11;
+        }
+
+        &.edit {
+            grid-column: 11;
         }
     }
 }

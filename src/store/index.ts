@@ -26,6 +26,23 @@ export interface IStore {
 }
 
 export const emptyWord: IWord = { id: '', body: '', reading: [], translation: [], isChecked: false, progress: 0, tags: [] }
+const mockData: { words: IWord[], learnedWords: IWord[] } = {
+    words: [
+        { id: Date.now().toString(), body: '構造', reading: ['こうぞう'], translation: ['structure', 'construction'], isChecked: false, progress: 90, tags: [] },
+        { id: Date.now().toString(), body: '国内総生産', reading: ['こくないそうせいさん'], translation: ['GDP'], isChecked: false, progress: 80, tags: [] },
+        { id: Date.now().toString(), body: '被る', reading: ['かぶる'], translation: ['to wear'], isChecked: false, progress: 70, tags: [] },
+        { id: Date.now().toString(), body: '被る', reading: ['こうむる'], translation: ['to suffer'], isChecked: false, progress: 70, tags: [] },
+        { id: Date.now().toString(), body: '辛い', reading: ['からい'], translation: ['spicy', 'hot'], isChecked: false, progress: 60, tags: [] },
+        { id: Date.now().toString(), body: '辛い', reading: ['つらい'], translation: ['tough', 'hard', 'painful'], isChecked: false, progress: 60, tags: [] },
+        { id: Date.now().toString(), body: '危機', reading: ['きき'], translation: ['crisis'], isChecked: false, progress: 40, tags: [] },
+        { id: Date.now().toString(), body: '雰囲気', reading: ['ふんいき'], translation: ['atmosphere', 'vibe'], isChecked: false, progress: 0, tags: [] }
+    ],
+
+    learnedWords: [
+        { id: Date.now().toString(), body: '戦車', reading: ['せんしゃ'], translation: ['tank'], isChecked: false, progress: 100, tags: [] },
+        { id: Date.now().toString(), body: '構う', reading: ['かまう'], translation: [' to mind', 'to care about'], isChecked: false, progress: 100, tags: [] }
+    ]
+}
 
 export default createStore<IStore>({
     state: () => ({
@@ -104,7 +121,9 @@ export default createStore<IStore>({
         initialiseStore() {
             const LSData = localStorage.getItem('JPVocabStore');
             if (LSData && LSData !== null) {
-                this.replaceState(Object.assign(this.state, JSON.parse(LSData)))
+                this.replaceState({ ...this.state, ...JSON.parse(LSData) })
+            } else {
+                this.replaceState({ ...this.state, ...mockData })
             }
         },
 
@@ -123,8 +142,12 @@ export default createStore<IStore>({
         },
 
         deleteWords() {
-            const newWords = [...this.state.words, ...this.state.learnedWords].filter(word => !word.isChecked)
+            const newWords = [...this.state.words].filter(word => !word.isChecked)
             this.commit('SET_WORDS', newWords)
+            if (this.state.showLearned) {
+                const newWords = [...this.state.learnedWords].filter(word => !word.isChecked)
+                this.commit('SET_LEARNED_WORDS', newWords)
+            }
             this.commit('SET_IS_ANY_CHECKED', false)
         },
 
@@ -241,6 +264,5 @@ export default createStore<IStore>({
             this.commit('SET_SHOW_LEARNED', bool)
             this.dispatch('scanAllIfAnyChecked')
         }
-
     }
 })

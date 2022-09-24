@@ -25,7 +25,7 @@ const color = props.progress < 15
         : props.progress < 75
             ? '#f7bb4e'
             : props.progress < 90
-                ? '#a3d5cc'
+                ? '#b6e42d'
                 : '#95cc65'
 
 </script>

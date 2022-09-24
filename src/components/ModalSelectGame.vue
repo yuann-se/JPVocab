@@ -38,7 +38,7 @@ import CloseIcon from '@/components/icons/CloseIcon.vue';
 import router from '@/router/router';
 import { ref } from 'vue';
 import FlashcardsOption from './FlashcardsOption.vue';
-import FlashCardsIcon from './FlashCardsIcon.vue';
+import FlashCardsIcon from '@/components/icons/FlashCardsIcon.vue';
 
 export interface IOption {
     fromOpt: string
@@ -254,7 +254,6 @@ const handleClick = (optNumber: number) => {
     .content {
         padding: 50px;
         width: 100%;
-        height: 100%;
         border-radius: 0;
     }
 

@@ -90,7 +90,7 @@ const handleNext = (know: boolean) => {
 
 .btnsWrapper {
     position: absolute;
-    z-index: 100;
+    // z-index: 100;
     bottom: 0;
     left: 0;
     width: 100%;

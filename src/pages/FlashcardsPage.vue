@@ -80,6 +80,7 @@ const handleRestartGame = () => {
     .back {
         position: absolute;
         top: 50%;
+        margin-left: 10px;
         transform: translateY(-50%);
         display: flex;
         align-items: center;

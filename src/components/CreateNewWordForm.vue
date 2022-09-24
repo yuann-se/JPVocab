@@ -148,6 +148,7 @@ const addNewWord = () => {
 @media (max-width: $bpS) {
     .sectionWrapper {
         top: 70px;
+        height: calc(100vh - 70px);
     }
 
     .container {

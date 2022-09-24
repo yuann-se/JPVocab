@@ -1,17 +1,19 @@
 <template>
     <div class="cardsWrapper">
         <div class=" container">
-            <WordCard v-for="word in words" :key="word.id" :word='word' />
+            <WordCard v-for="word in words" :key="word.id" :word='word' :is-selection-mode="isSelectionMode"
+                @change-mode="isSelectionMode = !isSelectionMode" />
         </div>
     </div>
 </template>
 
 <script lang="ts" setup>
 import store from '@/store';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import WordCard from '@/components/WordsListItem.vue';
 
 const words = computed(() => { return store.getters.sortedWords })
+const isSelectionMode = ref(false)
 
 </script>
 
