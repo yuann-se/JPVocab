@@ -249,6 +249,7 @@ const handleClick = (optNumber: number) => {
 
     .modalWrapper {
         padding: 0;
+        background-color: white;
     }
 
     .content {

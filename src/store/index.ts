@@ -29,18 +29,18 @@ export const emptyWord: IWord = { id: '', body: '', reading: [], translation: []
 const mockData: { words: IWord[], learnedWords: IWord[] } = {
     words: [
         { id: Date.now().toString(), body: '構造', reading: ['こうぞう'], translation: ['structure', 'construction'], isChecked: false, progress: 90, tags: [] },
-        { id: Date.now().toString(), body: '国内総生産', reading: ['こくないそうせいさん'], translation: ['GDP'], isChecked: false, progress: 80, tags: [] },
-        { id: Date.now().toString(), body: '被る', reading: ['かぶる'], translation: ['to wear'], isChecked: false, progress: 70, tags: [] },
-        { id: Date.now().toString(), body: '被る', reading: ['こうむる'], translation: ['to suffer'], isChecked: false, progress: 70, tags: [] },
-        { id: Date.now().toString(), body: '辛い', reading: ['からい'], translation: ['spicy', 'hot'], isChecked: false, progress: 60, tags: [] },
-        { id: Date.now().toString(), body: '辛い', reading: ['つらい'], translation: ['tough', 'hard', 'painful'], isChecked: false, progress: 60, tags: [] },
-        { id: Date.now().toString(), body: '危機', reading: ['きき'], translation: ['crisis'], isChecked: false, progress: 40, tags: [] },
-        { id: Date.now().toString(), body: '雰囲気', reading: ['ふんいき'], translation: ['atmosphere', 'vibe'], isChecked: false, progress: 0, tags: [] }
+        { id: (Date.now() + 10).toString(), body: '国内総生産', reading: ['こくないそうせいさん'], translation: ['GDP'], isChecked: false, progress: 80, tags: [] },
+        { id: (Date.now() + 20).toString(), body: '被る', reading: ['かぶる'], translation: ['to wear'], isChecked: false, progress: 70, tags: [] },
+        { id: (Date.now() + 30).toString(), body: '被る', reading: ['こうむる'], translation: ['to suffer'], isChecked: false, progress: 70, tags: [] },
+        { id: (Date.now() + 40).toString(), body: '辛い', reading: ['からい'], translation: ['spicy', 'hot'], isChecked: false, progress: 60, tags: [] },
+        { id: (Date.now() + 50).toString(), body: '辛い', reading: ['つらい'], translation: ['tough', 'hard', 'painful'], isChecked: false, progress: 60, tags: [] },
+        { id: (Date.now() + 60).toString(), body: '危機', reading: ['きき'], translation: ['crisis'], isChecked: false, progress: 40, tags: [] },
+        { id: (Date.now() + 70).toString(), body: '雰囲気', reading: ['ふんいき'], translation: ['atmosphere', 'vibe'], isChecked: false, progress: 0, tags: [] }
     ],
 
     learnedWords: [
-        { id: Date.now().toString(), body: '戦車', reading: ['せんしゃ'], translation: ['tank'], isChecked: false, progress: 100, tags: [] },
-        { id: Date.now().toString(), body: '構う', reading: ['かまう'], translation: [' to mind', 'to care about'], isChecked: false, progress: 100, tags: [] }
+        { id: (Date.now() + 80).toString(), body: '戦車', reading: ['せんしゃ'], translation: ['tank'], isChecked: false, progress: 100, tags: [] },
+        { id: (Date.now() + 90).toString(), body: '構う', reading: ['かまう'], translation: [' to mind', 'to care about'], isChecked: false, progress: 100, tags: [] }
     ]
 }
 

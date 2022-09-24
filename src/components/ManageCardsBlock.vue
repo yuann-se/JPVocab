@@ -85,20 +85,24 @@ const setIsModalOpen = (value: boolean, modalName = '') => {
 const handleDelete = () => {
     store.dispatch('deleteWords')
     setIsModalOpen(false)
+    showMenu.value = false
 }
 
 const handleAddLearned = () => {
     store.dispatch('addToLearned')
     setIsModalOpen(false)
+    showMenu.value = false
 }
 
 const handleRemoveLearned = () => {
     store.dispatch('removeFromLearned')
     setIsModalOpen(false)
+    showMenu.value = false
 }
 
 const handleShowLearned = () => {
     store.dispatch('setShowLearned', !showLearned.value)
+    showMenu.value = false
 }
 
 </script>

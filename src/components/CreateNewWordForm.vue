@@ -107,6 +107,7 @@ const addNewWord = () => {
     z-index: 400;
     height: calc(100vh - 90px);
     backdrop-filter: blur(3px);
+    overflow-y: scroll;
 }
 
 .content {
