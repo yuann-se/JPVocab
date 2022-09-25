@@ -20,7 +20,7 @@ export interface IStore {
     sortBy: ESortBy
     sortDirection: ESortDirection
     isAddPanelOpen: boolean
-    isAnyChecked: boolean
+    checkedCount: number
     wordToEdit: IWord
     showLearned: boolean
 }
@@ -50,7 +50,7 @@ export default createStore<IStore>({
         learnedWords: [],
         searchQuery: '',
         isAddPanelOpen: false,
-        isAnyChecked: false,
+        checkedCount: 0,
         sortBy: ESortBy.createdDate,
         sortDirection: ESortDirection.ascending,
         wordToEdit: { ...emptyWord },
@@ -58,8 +58,8 @@ export default createStore<IStore>({
     }),
 
     mutations: {
-        SET_IS_ANY_CHECKED(state, bool: boolean) {
-            state.isAnyChecked = bool
+        SET_CHECKED_COUNT(state, num: number) {
+            state.checkedCount = num
         },
 
         SET_WORDS(state, arr: IWord[]) {
@@ -148,7 +148,7 @@ export default createStore<IStore>({
                 const newWords = [...this.state.learnedWords].filter(word => !word.isChecked)
                 this.commit('SET_LEARNED_WORDS', newWords)
             }
-            this.commit('SET_IS_ANY_CHECKED', false)
+            this.commit('SET_CHECKED_COUNT', 0)
         },
 
         addToLearned() {
@@ -156,7 +156,7 @@ export default createStore<IStore>({
             const leftWords = this.state.words.filter(word => !word.isChecked)
             addWords.forEach((item) => {
                 item.progress = 100
-                item.isChecked = false
+                this.dispatch('setIsChecked', item)
             })
 
             this.commit('SET_WORDS', leftWords)
@@ -167,7 +167,6 @@ export default createStore<IStore>({
                     this.dispatch('setIsChecked', item)
                 }
             }
-            this.commit('SET_IS_ANY_CHECKED', false)
         },
 
         removeFromLearned() {
@@ -175,7 +174,7 @@ export default createStore<IStore>({
             const leftWords = this.state.learnedWords.filter(word => !word.isChecked)
             removeWords.forEach((item) => {
                 item.progress = 50
-                item.isChecked = false
+                this.dispatch('setIsChecked', item)
             })
 
             this.commit('SET_WORDS', [...this.state.words, ...removeWords])
@@ -186,7 +185,6 @@ export default createStore<IStore>({
                     this.dispatch('setIsChecked', item)
                 }
             }
-            this.commit('SET_IS_ANY_CHECKED', false)
         },
 
         setIsChecked(_, word: IWord) {
@@ -197,6 +195,7 @@ export default createStore<IStore>({
             for (const item of words) {
                 if (item.id === word.id) {
                     item.isChecked = !item.isChecked
+                    item.isChecked ? this.commit('SET_CHECKED_COUNT', this.state.checkedCount + 1) : this.commit('SET_CHECKED_COUNT', this.state.checkedCount - 1)
                     this.commit('SET_WORDS', words)
                     isFound = true
                     break
@@ -207,26 +206,8 @@ export default createStore<IStore>({
                 for (const item of learnedWords) {
                     if (item.id === word.id) {
                         item.isChecked = !item.isChecked
+                        item.isChecked ? this.commit('SET_CHECKED_COUNT', ++this.state.checkedCount) : this.commit('SET_CHECKED_COUNT', --this.state.checkedCount)
                         this.commit('SET_LEARNED_WORDS', learnedWords)
-                        break
-                    }
-                }
-            }
-        },
-
-        scanAllIfAnyChecked() {
-            this.commit('SET_IS_ANY_CHECKED', false)
-            for (const item of this.state.words) {
-                if (item.isChecked) {
-                    if (!this.state.isAnyChecked) this.commit('SET_IS_ANY_CHECKED', true)
-                    break
-                }
-            }
-
-            if (!this.state.isAnyChecked && this.state.showLearned) {
-                for (const item of this.state.learnedWords) {
-                    if (item.isChecked) {
-                        if (!this.state.isAnyChecked) this.commit('SET_IS_ANY_CHECKED', true)
                         break
                     }
                 }
@@ -262,7 +243,6 @@ export default createStore<IStore>({
                 }
             }
             this.commit('SET_SHOW_LEARNED', bool)
-            this.dispatch('scanAllIfAnyChecked')
         }
     }
 })

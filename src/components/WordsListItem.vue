@@ -50,11 +50,10 @@ interface IProps {
 
 const props = defineProps<IProps>()
 
-const isAnyChecked = computed(() => { return store.state.isAnyChecked })
+const isAnyChecked = computed(() => { return store.state.checkedCount > 0 })
 
 const setIsChecked = () => {
     store.dispatch('setIsChecked', props.word)
-    store.dispatch('scanAllIfAnyChecked')
 }
 
 const handleEdit = () => {

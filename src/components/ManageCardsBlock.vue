@@ -72,7 +72,7 @@ import HideIcon from './icons/HideIcon.vue';
 import ShowIcon from './icons/ShowIcon.vue';
 import BurgerIcon from './icons/BurgerIcon.vue';
 
-const isAnyChecked = computed<boolean>(() => { return store.state.isAnyChecked })
+const isAnyChecked = computed<boolean>(() => { return store.state.checkedCount > 0 })
 const showLearned = computed<boolean>(() => { return store.state.showLearned })
 const showMenu = ref(false)
 
