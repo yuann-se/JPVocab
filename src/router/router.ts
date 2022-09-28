@@ -6,19 +6,19 @@ import ModalSelectGame from "@/components/ModalSelectGame.vue";
 const routes = [
     {
         path: '/',
-        name: 'home',
+        name: 'JPVocab | Home',
         component: MainPage,
         children: [
             {
                 path: 'selectGame',
-                name: 'selectGame',
+                name: 'JPVocab | Select Game',
                 component: ModalSelectGame
             }
         ]
     },
     {
         path: '/flashcards/',
-        name: 'flashcards',
+        name: 'JPVocab | Flashcards',
         component: FlashcardsPage,
     },
 ]

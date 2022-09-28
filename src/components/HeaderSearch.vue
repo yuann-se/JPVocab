@@ -1,5 +1,5 @@
 <template>
-    <input class="searchInput" type="text" v-model.trim="searchQuery">
+    <input class="searchInput" type="text" aria-label="Input search query" v-model.trim="searchQuery">
 </template>
 
 <script lang="ts" setup>

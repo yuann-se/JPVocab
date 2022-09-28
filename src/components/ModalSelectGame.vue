@@ -24,7 +24,7 @@
                     <FlashcardsOption v-for="(opt, ind) in optionsArr" :key="ind" :option="opt"
                         @click="handleClick(ind)" :class="{selected: selectedOption === ind}" />
 
-                    <router-link :to="{name: 'flashcards', query: {'from': from, 'to': to}}" class="startBtn">
+                    <router-link :to="{path: '/flashcards', query: {'from': from, 'to': to}}" class="startBtn">
                         Start!</router-link>
                 </div>
             </transition>

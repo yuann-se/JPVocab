@@ -111,7 +111,7 @@ export default createStore<IStore>({
                 newArray = newArray.sort((word1, word2) => word1[getSortParams()] > word2[getSortParams()] ? 1 : -1)
             } else newArray = newArray.sort((word1, word2) => word1[getSortParams()] < word2[getSortParams()] ? 1 : -1)
 
-            if (state.searchQuery) newArray = newArray.filter(word => word.body.toLowerCase().includes(state.searchQuery.toLowerCase()))
+            if (state.searchQuery) newArray = newArray.filter(word => `${word.body}${word.reading.toString().toLowerCase()}${word.translation.toString().toLowerCase()}`.includes(state.searchQuery.toLowerCase()))
 
             return newArray;
         },
@@ -156,17 +156,14 @@ export default createStore<IStore>({
             const leftWords = this.state.words.filter(word => !word.isChecked)
             addWords.forEach((item) => {
                 item.progress = 100
-                this.dispatch('setIsChecked', item)
+                item.isChecked = false
+                this.commit('SET_CHECKED_COUNT', this.state.checkedCount - 1)
             })
 
             this.commit('SET_WORDS', leftWords)
             this.commit('SET_LEARNED_WORDS', [...this.state.learnedWords, ...addWords])
 
-            for (const item of this.state.learnedWords) {
-                if (item.isChecked) {
-                    this.dispatch('setIsChecked', item)
-                }
-            }
+            this.dispatch('multipleRemoveChecked', { arr: this.state.learnedWords, stateName: 'learned' })
         },
 
         removeFromLearned() {
@@ -174,17 +171,14 @@ export default createStore<IStore>({
             const leftWords = this.state.learnedWords.filter(word => !word.isChecked)
             removeWords.forEach((item) => {
                 item.progress = 50
-                this.dispatch('setIsChecked', item)
+                item.isChecked = false
+                this.commit('SET_CHECKED_COUNT', this.state.checkedCount - 1)
             })
 
             this.commit('SET_WORDS', [...this.state.words, ...removeWords])
             this.commit('SET_LEARNED_WORDS', leftWords)
 
-            for (const item of this.state.words) {
-                if (item.isChecked) {
-                    this.dispatch('setIsChecked', item)
-                }
-            }
+            this.dispatch('multipleRemoveChecked', { arr: this.state.words, stateName: 'notLearned' })
         },
 
         setIsChecked(_, word: IWord) {
@@ -195,7 +189,7 @@ export default createStore<IStore>({
             for (const item of words) {
                 if (item.id === word.id) {
                     item.isChecked = !item.isChecked
-                    item.isChecked ? this.commit('SET_CHECKED_COUNT', this.state.checkedCount + 1) : this.commit('SET_CHECKED_COUNT', this.state.checkedCount - 1)
+                    item.isChecked ? this.commit('SET_CHECKED_COUNT', ++this.state.checkedCount) : this.commit('SET_CHECKED_COUNT', --this.state.checkedCount)
                     this.commit('SET_WORDS', words)
                     isFound = true
                     break
@@ -210,6 +204,24 @@ export default createStore<IStore>({
                         this.commit('SET_LEARNED_WORDS', learnedWords)
                         break
                     }
+                }
+            }
+        },
+
+        multipleRemoveChecked(_, { arr, stateName }: { arr: IWord[], stateName: string }) {
+            const checkedArr = arr.filter((item) => item.isChecked)
+            if (checkedArr.length) {
+                const notCheckedArr = arr.filter((item) => !item.isChecked)
+                checkedArr.forEach((item) => {
+                    item.isChecked = false
+                    this.commit('SET_CHECKED_COUNT', --this.state.checkedCount)
+                })
+                switch (stateName) {
+                    case ('learned'): {
+                        this.commit('SET_LEARNED_WORDS', [...checkedArr, ...notCheckedArr])
+                        break
+                    }
+                    case ('notLearned'): this.commit('SET_WORDS', [...checkedArr, ...notCheckedArr])
                 }
             }
         },
@@ -236,11 +248,7 @@ export default createStore<IStore>({
 
         setShowLearned(_, bool: boolean) {
             if (this.state.showLearned) {
-                for (const item of this.state.learnedWords) {
-                    if (item.isChecked) {
-                        this.dispatch('setIsChecked', item)
-                    }
-                }
+                this.dispatch('multipleRemoveChecked', { arr: this.state.learnedWords, stateName: 'learned' })
             }
             this.commit('SET_SHOW_LEARNED', bool)
         }

@@ -2,15 +2,15 @@
     <header class="header">
         <div class="container">
 
-            <img class="logo" src="../assets/logo.png" alt="Logo">
+            <img class="logo" src="../assets/logo.png" alt="JPVocab Logo">
 
             <HeaderSearch />
 
-            <button class="add" @click="openAddPanel" :class="{active: isAddPanelOpen}">
+            <button class="add" @click="openAddPanel" :class="{active: isAddPanelOpen}" aria-label="Add word">
                 <AddNewWordIcon />
             </button>
 
-            <router-link to="/selectGame" class="practice">
+            <router-link to="/selectGame" class="practice" aria-label="Practice">
                 <PracticeIcon />
             </router-link>
 

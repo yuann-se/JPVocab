@@ -3,7 +3,8 @@
         <div class="container">
             <SortBlock />
 
-            <button class="burger" @click="showMenu = !showMenu">
+            <button class="burger" @click="showMenu = !showMenu"
+                :aria-label="showMenu ? 'Hide options' : 'Show options'">
                 <BurgerIcon />
             </button>
 
@@ -25,7 +26,8 @@
                     <span>Learned</span>
                 </button>
 
-                <button class="actionBtn delete" :disabled="!isAnyChecked" @click="setIsModalOpen(true, 'delete')">
+                <button class="actionBtn delete" :disabled="!isAnyChecked" @click="setIsModalOpen(true, 'delete')"
+                    aria-label="Delete words">
                     <DeleteWordIcon />
                     <span v-if="showMenu">Delete</span>
                 </button>

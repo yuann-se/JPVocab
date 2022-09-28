@@ -11,10 +11,10 @@
                     @click="setSortBy(option)">{{option}}</button>
             </div>
         </div>
-        <button class="sortIcon" @click="setSortDirection(ESortDirection.ascending)">
+        <button class="sortIcon" @click="setSortDirection(ESortDirection.ascending)" aria-label="Ascending">
             <sort-arrow-icon :isActive="sortDirection === ESortDirection.ascending" />
         </button>
-        <button class="sortIcon" @click="setSortDirection(ESortDirection.descending)">
+        <button class="sortIcon" @click="setSortDirection(ESortDirection.descending)" aria-label="Descending">
             <sort-arrow-icon :isActive="sortDirection === ESortDirection.descending" />
         </button>
     </div>

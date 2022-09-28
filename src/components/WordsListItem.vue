@@ -21,10 +21,11 @@
             <CheckMarkIcon v-if="word.progress === 100" class="learnedCheck" />
             <span v-else>{{props.word.progress}}%</span>
         </div>
-        <button class="segment edit" @click="handleEdit">
+        <button class="segment edit" @click="handleEdit" aria-label="Edit word">
             <EditWordIcon />
         </button>
         <label class="segment checkbox">
+            <span class="aria">{{props.word.isChecked ? 'Select word': 'Deselect word'}}</span>
             <input type="checkbox" :checked="word.isChecked" @change="setIsChecked">
             <span class="box">
                 <span class="mark">
@@ -168,6 +169,10 @@ const handleWrapperClick = () => {
     &.checkbox {
         grid-column: 12;
         cursor: pointer;
+
+        &>.aria {
+            display: none;
+        }
 
         &::before {
             content: '';
