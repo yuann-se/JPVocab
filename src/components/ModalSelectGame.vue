@@ -7,13 +7,21 @@
             </button>
             <ul class="gamesList">
                 <li class="gameItemWrapper">
-                    <button class="gameItem">
+                    <button class="gameItem" @click="selectedGame = 'practice/flashcards'"
+                        :class="{selected: selectedGame === 'practice/flashcards'}">
                         <FlashCardsIcon />
                         <span>Flashcards</span>
                     </button>
                 </li>
 
-                <li class="gameItemWrapper"><button disabled class="gameItem">game_name</button></li>
+                <li class="gameItemWrapper">
+                    <button class="gameItem" @click="selectedGame = 'practice/test'"
+                        :class="{selected: selectedGame === 'practice/test'}">
+                        <TestIcon />
+                        <span>Test</span>
+                    </button>
+                </li>
+
                 <li class="gameItemWrapper"><button disabled class="gameItem">game_name</button></li>
                 <li class="gameItemWrapper"><button disabled class="gameItem">game_name</button></li>
             </ul>
@@ -24,7 +32,7 @@
                     <FlashcardsOption v-for="(opt, ind) in optionsArr" :key="ind" :option="opt"
                         @click="handleClick(ind)" :class="{selected: selectedOption === ind}" />
 
-                    <router-link :to="{path: '/flashcards', query: {'from': from, 'to': to}}" class="startBtn">
+                    <router-link :to="{path: selectedGame, query: {'from': from, 'to': to}}" class="startBtn">
                         Start!</router-link>
                 </div>
             </transition>
@@ -39,6 +47,7 @@ import router from '@/router/router';
 import { ref } from 'vue';
 import FlashcardsOption from './FlashcardsOption.vue';
 import FlashCardsIcon from '@/components/icons/FlashCardsIcon.vue';
+import TestIcon from './icons/TestIcon.vue';
 
 export interface IOption {
     fromOpt: string
@@ -51,6 +60,7 @@ const handleClose = () => router.push('/')
 const from = ref<string>('Word')
 const to = ref<string>('Translation')
 const selectedOption = ref<number>(0)
+const selectedGame = ref<string>('practice/flashcards')
 
 const optionsArr = ref<IOption[]>([
     { fromOpt: 'Word', toOpt: 'Translation', turned: false },
@@ -71,6 +81,13 @@ const handleClick = (optNumber: number) => {
 
     }
     selectedOption.value = optNumber
+}
+
+const height = () => {
+    switch (selectedGame.value) {
+        case ('practice/flashcards'): return '20px'
+        case ('practice/test'): return '110px'
+    }
 }
 
 </script>
@@ -115,6 +132,9 @@ const handleClick = (optNumber: number) => {
     width: 100%;
     height: 70px;
     background-color: $purple66;
+    outline: transparent;
+    outline-offset: 0;
+    transition: outline .2s ease, outline-offset .2s ease;
 
     text-align: center;
     font-size: 30px;
@@ -131,6 +151,11 @@ const handleClick = (optNumber: number) => {
         width: 45px;
         margin-right: 15px;
     }
+
+    &.selected {
+        outline: 2px solid $purple66;
+        outline-offset: 3px;
+    }
 }
 
 .gameItemWrapper {
@@ -143,6 +168,7 @@ const handleClick = (optNumber: number) => {
 }
 
 .options {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -153,7 +179,20 @@ const handleClick = (optNumber: number) => {
     border-radius: 15px;
     will-change: width;
     background-color: $bg;
-    box-shadow: 1px 1px 5px 1px rgb(0 0 0 / 10%);
+    box-shadow: 0 0 4px 1px $purple66;
+
+    &::before {
+        content: '';
+        position: absolute;
+        left: -11px;
+        top: v-bind(height());
+        width: 30px;
+        height: 30px;
+        box-shadow: 4px 4px 4px -3px #664dce;
+        transform: rotate(135deg);
+        background-color: $bg;
+        transition: top .2s ease;
+    }
 }
 
 .startBtn {
@@ -216,6 +255,11 @@ const handleClick = (optNumber: number) => {
 
     .options {
         margin-left: 0;
+        box-shadow: 1px 1px 5px 1px rgb(0 0 0 / 10%);
+
+        &::before {
+            display: none;
+        }
     }
 }
 

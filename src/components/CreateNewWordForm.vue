@@ -128,7 +128,7 @@ const addNewWord = () => {
         font-size: 18px;
     }
 
-    label {
+    &:deep(label) {
         color: $purple4F;
         font-size: 14px;
     }

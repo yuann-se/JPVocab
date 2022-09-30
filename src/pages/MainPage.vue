@@ -30,7 +30,6 @@ const isAddPanelOpen = computed<boolean>(() => { return store.state.isAddPanelOp
 <style lang="scss" scoped>
 .addPanel-enter-active,
 .addPanel-leave-active {
-    // backdrop-filter: blur(3px);
     transition: backdrop-filter 0.5s ease;
 
     &:deep(.container) {
@@ -49,15 +48,23 @@ const isAddPanelOpen = computed<boolean>(() => { return store.state.isAddPanelOp
     }
 }
 
-
 .modal-enter-active,
 .modal-leave-active {
     opacity: 1;
     transition: opacity .2s ease;
+
+    &:deep(.content) {
+        transform: none;
+        transition: transform .2s ease;
+    }
 }
 
 .modal-enter-from,
 .modal-leave-to {
     opacity: 0;
+
+    &:deep(.content) {
+        transform: scale(.8);
+    }
 }
 </style>

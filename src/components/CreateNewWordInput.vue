@@ -70,7 +70,7 @@ const deleteItem = (item: string) => { emit('deleteItem', { payload: item, input
         width: 100%;
         height: 2px;
         max-width: 0;
-        transition: max-width .2s ease;
+        transition: max-width .5s ease;
         background-color: $purple4F;
     }
 

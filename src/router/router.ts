@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import MainPage from "@/pages/MainPage.vue";
 import FlashcardsPage from "@/pages/FlashcardsPage.vue";
 import ModalSelectGame from "@/components/ModalSelectGame.vue";
+import TestPageVue from "@/pages/TestPage.vue";
+import GamePage from "@/pages/GamePage.vue";
 
 const routes = [
     {
@@ -16,11 +18,25 @@ const routes = [
             }
         ]
     },
+
     {
-        path: '/flashcards/',
-        name: 'JPVocab | Flashcards',
-        component: FlashcardsPage,
+        path: '/practice/',
+        // name: 'JPVocab | Pra',
+        component: GamePage,
+        children: [
+            {
+                path: 'flashcards/',
+                name: 'JPVocab | Flashcards',
+                component: FlashcardsPage,
+            },
+            {
+                path: 'test/',
+                name: 'JPVocab | Test',
+                component: TestPageVue,
+            },
+        ]
     },
+
 ]
 
 const router = createRouter({
