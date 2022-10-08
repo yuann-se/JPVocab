@@ -13,8 +13,8 @@
 </template>
 
 <script setup lang="ts">
+import { IOption } from '@/views/main/SelectGame.vue';
 import SwitchArrowIcon from './icons/SwitchArrowIcon.vue';
-import { IOption } from './ModalSelectGame.vue';
 
 interface IProps {
     option: IOption
@@ -24,7 +24,7 @@ const props = defineProps<IProps>()
 
 </script>
 <style lang="scss" scoped>
-@import '@/scss/variables';
+@import '@/assets/scss/variables';
 
 .optionWrapper {
     position: relative;

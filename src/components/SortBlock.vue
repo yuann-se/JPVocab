@@ -56,7 +56,7 @@ onUnmounted(() => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/scss/variables';
+@import '@/assets/scss/variables';
 
 .mainWrapper {
     display: flex;

@@ -34,7 +34,7 @@ const openAddPanel = () => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/scss/variables';
+@import '@/assets/scss/variables';
 
 .header {
     position: fixed;

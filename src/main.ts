@@ -1,8 +1,8 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import router from "@/router/router";
-import store from './store';
-import '@/scss/global.scss'
+import router from "@/router";
+import store from '@/store';
+import '@/assets/scss/global.scss'
 
 store.subscribe((_, state) => {
     localStorage.setItem('JPVocabStore', JSON.stringify(state));

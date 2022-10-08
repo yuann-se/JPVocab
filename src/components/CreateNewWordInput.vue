@@ -44,7 +44,7 @@ const deleteItem = (item: string) => { emit('deleteItem', { payload: item, input
 
 </script>
 <style lang="scss">
-@import '@/scss/variables';
+@import '@/assets/scss/variables';
 
 .inputForm {
     display: flex;

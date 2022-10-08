@@ -1,21 +1,21 @@
 <template>
-    <GameHeader v-if="i<wordsArr.length" :current="i" :total="wordsArr.length" />
+    <GameHeader :current="i<wordsArr.length ? i : wordsArr.length" :total="wordsArr.length" />
 
     <router-view v-if="i<wordsArr.length" @increment="handleIncrement" :current="i" :words-arr="wordsArr"></router-view>
 
     <transition name="finish">
-        <FlashcardsFinishScreen v-if="i>=wordsArr.length" :stats="gameStats" @continue-game="handleContinueGame"
+        <GameFinishScreen v-if="i>=wordsArr.length" :stats="gameStats" @continue-game="handleContinueGame"
             @restart-game="handleRestartGame" />
     </transition>
 
 </template>
 
 <script setup lang="ts">
-import FlashcardsFinishScreen from '@/components/FlashcardsFinishScreen.vue';
 import store, { IWord } from '@/store';
 import { shuffle } from '@/utils';
 import { ref, computed } from 'vue';
 import GameHeader from '@/components/GameHeader.vue';
+import GameFinishScreen from '../../components/GameFinishScreen.vue';
 
 const i = ref<number>(0)
 const words = computed(() => { return store.state.words })

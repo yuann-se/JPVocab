@@ -7,7 +7,7 @@
 </template>
 
 <style lang="scss" scoped>
-@import '@/scss/variables';
+@import '@/assets/scss/variables';
 
 rect:nth-child(2) {
     fill: $selected

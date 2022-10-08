@@ -85,8 +85,8 @@ const handleWrapperClick = () => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/scss/variables';
-@import '@/scss/mixins';
+@import '@/assets/scss/variables';
+@import '@/assets/scss/mixins';
 
 .cardWrapper {
     position: relative;

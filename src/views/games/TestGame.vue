@@ -95,7 +95,7 @@ const handleNext = (option: string[]) => (e: Event) => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/scss/variables';
+@import '@/assets/scss/variables';
 
 .container {
     display: flex;
@@ -151,15 +151,16 @@ const handleNext = (option: string[]) => (e: Event) => {
 
     .actionBtn {
         width: calc(50% - 5px);
-        height: 60px;
+        min-height: 60px;
         margin-bottom: 10px;
+        padding: 5px 15px;
         font-size: 22px;
         font-weight: 500;
         outline: 1px solid $disabledGrey;
         border-radius: 30px;
         transition: all .2s ease;
 
-        &:hover:not(.correct, .wrong) {
+        &:hover {
             background-color: $selected;
             color: $purple4F;
             box-shadow: 0px 0px 4px 1px $purple66;
@@ -194,7 +195,7 @@ const handleNext = (option: string[]) => (e: Event) => {
 }
 
 @media (max-width: $bpS) {
-    .actionBtn {
+    .btnsWrapper .actionBtn {
         font-size: 18px;
     }
 }

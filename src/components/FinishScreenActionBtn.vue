@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import router from '@/router/router';
+import router from '@/router';
 import ChooseGameIconVue from './icons/ChooseGameIcon.vue';
 import ContinueIconVue from './icons/ContinueIcon.vue';
 import ListIconVue from './icons/ListIcon.vue';
@@ -49,7 +49,7 @@ const handleClick = () => {
 
 </script>
 <style lang="scss" scoped>
-@import '@/scss/variables';
+@import '@/assets/scss/variables';
 
 .actionBtn {
     display: flex;

@@ -8,7 +8,7 @@
 </template>
 
 <style lang="scss" scoped>
-@import '@/scss/variables';
+@import '@/assets/scss/variables';
 
 svg {
     width: 45px;

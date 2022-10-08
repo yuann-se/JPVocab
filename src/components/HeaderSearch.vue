@@ -18,7 +18,7 @@ const searchQuery: WritableComputedRef<string> = computed<string>({
 </script>
 
 <style lang="scss" scoped>
-@import '@/scss/variables';
+@import '@/assets/scss/variables';
 
 .searchInput {
     height: 45px;

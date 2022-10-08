@@ -4,7 +4,7 @@
 
 <script lang="ts" setup>
 import { onBeforeMount } from 'vue';
-import router from './router/router';
+import router from './router';
 import store from './store';
 
 onBeforeMount(() => store.dispatch('initialiseStore'))

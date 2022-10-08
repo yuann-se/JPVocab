@@ -21,7 +21,7 @@ import { computed } from "vue";
 import MainHeader from "@/components/MainHeader.vue";
 import ManageCardsBlock from "@/components/ManageCardsBlock.vue";
 import store from "@/store";
-import CreateNewWordForm from "../components/CreateNewWordForm.vue";
+import CreateNewWordForm from "@/components/CreateNewWordForm.vue";
 
 const isAddPanelOpen = computed<boolean>(() => { return store.state.isAddPanelOpen })
 

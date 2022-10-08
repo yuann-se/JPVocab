@@ -18,7 +18,7 @@ const isSelectionMode = ref(false)
 </script>
 
 <style lang="scss" scoped>
-@import '@/scss/variables';
+@import '@/assets/scss/variables';
 
 .cardsWrapper {
     position: absolute;

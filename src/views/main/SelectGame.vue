@@ -43,11 +43,11 @@
 
 <script lang="ts" setup>
 import CloseIcon from '@/components/icons/CloseIcon.vue';
-import router from '@/router/router';
+import router from '@/router';
 import { ref } from 'vue';
-import FlashcardsOption from './FlashcardsOption.vue';
 import FlashCardsIcon from '@/components/icons/FlashCardsIcon.vue';
-import TestIcon from './icons/TestIcon.vue';
+import TestIcon from '@/components/icons/TestIcon.vue';
+import FlashcardsOption from '@/components/FlashcardsOption.vue';
 
 export interface IOption {
     fromOpt: string
@@ -93,8 +93,8 @@ const height = () => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/scss/variables';
-@import '@/scss/mixins';
+@import '@/assets/scss/variables';
+@import '@/assets/scss/mixins';
 
 .modalWrapper {
     @include modalOverlay;

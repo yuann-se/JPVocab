@@ -12,7 +12,7 @@
     </header>
 </template>
 <script setup lang="ts">
-import router from '@/router/router';
+import router from '@/router';
 import { computed } from 'vue';
 import ArrowBackIcon from './icons/ArrowBackIcon.vue';
 import HomeIcon from './icons/HomeIcon.vue';
@@ -28,7 +28,7 @@ const maxWidth = computed(() => { return `${100 / props.total * (props.current +
 
 </script>
 <style lang="scss" scoped>
-@import '@/scss/variables';
+@import '@/assets/scss/variables';
 
 .container {
     position: relative;

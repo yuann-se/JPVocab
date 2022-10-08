@@ -20,7 +20,7 @@ const props = defineProps<IProps>()
 </script>
 
 <style scoped lang="scss">
-@import '@/scss/variables';
+@import '@/assets/scss/variables';
 
 .isActive {
     .path {

@@ -98,7 +98,7 @@ const addNewWord = () => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/scss/variables';
+@import '@/assets/scss/variables';
 
 .sectionWrapper {
     position: fixed;

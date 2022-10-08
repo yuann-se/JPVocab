@@ -1,10 +1,10 @@
-@import '@/scss/variables';
+@import '@/assets/scss/variables';
 
 @font-face {
     font-family: 'NeueHaasDisplay';
     src: local('NeueHaasDisplay Light'), local('NeueHaasDisplay-Light'),
-        url('@/fonts/NeueHaasDisplay-Light.woff2') format('woff2'),
-        url('@/fonts/NeueHaasDisplay-Light.woff') format('woff');
+        url('@/assets/fonts/NeueHaasDisplay-Light.woff2') format('woff2'),
+        url('@/assets/fonts/NeueHaasDisplay-Light.woff') format('woff');
     font-weight: 300;
     font-style: normal;
 }
@@ -12,8 +12,8 @@
 @font-face {
     font-family: 'NeueHaasDisplay';
     src: local('NeueHaasDisplay Roman'), local('NeueHaasDisplay-Roman'),
-        url('@/fonts/NeueHaasDisplay-Roman.woff2') format('woff2'),
-        url('@/fonts/NeueHaasDisplay-Roman.woff') format('woff');
+        url('@/assets/fonts/NeueHaasDisplay-Roman.woff2') format('woff2'),
+        url('@/assets/fonts/NeueHaasDisplay-Roman.woff') format('woff');
     font-weight: 400;
     font-style: normal;
 }
@@ -21,8 +21,8 @@
 @font-face {
     font-family: 'NeueHaasDisplay';
     src: local('NeueHaasDisplay Medium'), local('NeueHaasDisplay-Medium'),
-        url('@/fonts/NeueHaasDisplay-Medium.woff2') format('woff2'),
-        url('@/fonts/NeueHaasDisplay-Medium.woff') format('woff');
+        url('@/assets/fonts/NeueHaasDisplay-Medium.woff2') format('woff2'),
+        url('@/assets/fonts/NeueHaasDisplay-Medium.woff') format('woff');
     font-weight: 500;
     font-style: normal;
 }
@@ -31,8 +31,8 @@
 @font-face {
     font-family: 'NotoSansJP';
     src: local('NotoSansJP Medium'), local('NotoSansJP-Medium'),
-        url('@/fonts/NotoSansJP-Medium.woff2') format('woff2'),
-        url('@/fonts/NotoSansJP-Medium.woff') format('woff');
+        url('@/assets/fonts/NotoSansJP-Medium.woff2') format('woff2'),
+        url('@/assets/fonts/NotoSansJP-Medium.woff') format('woff');
     font-weight: 500;
     font-style: normal;
     unicode-range: U+3000-303f, U+3040-309f, U+30A0-30FF, U+ff00-ffef, U+4e00-9faf;
@@ -41,8 +41,8 @@
 @font-face {
     font-family: 'NotoSansJP';
     src: local('NotoSansJP Regular'), local('NotoSansJP-Regular'),
-        url('@/fonts/NotoSansJP-Regular.woff2') format('woff2'),
-        url('@/fonts/NotoSansJP-Regular.woff') format('woff');
+        url('@/assets/fonts/NotoSansJP-Regular.woff2') format('woff2'),
+        url('@/assets/fonts/NotoSansJP-Regular.woff') format('woff');
     font-weight: 400;
     font-style: normal;
     unicode-range: U+3000-303f, U+3040-309f, U+30A0-30FF, U+ff00-ffef, U+4e00-9faf;
@@ -51,8 +51,8 @@
 @font-face {
     font-family: 'NotoSansJP';
     src: local('NotoSansJP Light'), local('NotoSansJP-Light'),
-        url('@/fonts/NotoSansJP-Light.woff2') format('woff2'),
-        url('@/fonts/NotoSansJP-Light.woff') format('woff');
+        url('@/assets/fonts/NotoSansJP-Light.woff2') format('woff2'),
+        url('@/assets/fonts/NotoSansJP-Light.woff') format('woff');
     font-weight: 300;
     font-style: normal;
     unicode-range: U+3000-303f, U+3040-309f, U+30A0-30FF, U+ff00-ffef, U+4e00-9faf;

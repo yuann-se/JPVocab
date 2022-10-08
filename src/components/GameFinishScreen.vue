@@ -73,7 +73,7 @@ const emit = defineEmits(['continueGame', 'restartGame'])
 
 </script>
 <style lang="scss" scoped>
-@import '@/scss/variables';
+@import '@/assets/scss/variables';
 
 .finishScreenSection {
     padding: 30px 0;
